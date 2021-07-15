@@ -1,15 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import TestScreen from '@screens/TestScreen';
+import {View, Text} from 'react-native';
+import WelcomeScreen from 'screens/WelcomeScreen';
+import {globalStyles} from 'styles/screens/globalStyles';
 
 const App = () => {
   return (
-    <View>
-      <TestScreen />
+    <View style={globalStyles.rootView}>
+      <WelcomeScreen />
     </View>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({});

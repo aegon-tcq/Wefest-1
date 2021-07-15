@@ -16,12 +16,12 @@
           ".json"
         ],
         "alias": {
-          "@navigation": "./src/navigation",
-          "@components": "./src/components",
-          "@assets": "./src/assets",
-          "@screens": "./src/screens",
-          "@styles": "./src/styles",
-          "@constants": "./src/constants"
+          "navigation": "./src/navigation",
+          "components": "./src/components",
+          "assets": "./src/assets",
+          "screens": "./src/screens",
+          "styles": "./src/styles",
+          "constants": "./src/constants"
         }
       }
     ]
