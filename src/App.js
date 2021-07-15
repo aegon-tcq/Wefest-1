@@ -1,13 +1,13 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import WelcomeScreen from 'screens/WelcomeScreen';
-import {globalStyles} from 'styles/screens/globalStyles';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import AdminStackScreen from 'navigation/AdminStack';
 
 const App = () => {
   return (
-    <View style={globalStyles.rootView}>
-      <WelcomeScreen />
-    </View>
+    <NavigationContainer>
+      <AdminStackScreen />
+    </NavigationContainer>
   );
 };
 

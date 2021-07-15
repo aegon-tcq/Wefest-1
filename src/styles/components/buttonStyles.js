@@ -2,17 +2,27 @@ import {StyleSheet} from 'react-native';
 import Colors from 'constants/Colors';
 
 export const containedbuttonStyles = StyleSheet.create({
-  buttonContainer: {
-    borderRadius: 20,
-    backgroundColor: Colors.secondary,
-    paddingVertical: 18,
+  gradientContainer: {
+    flex: 1,
+    borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  gButtonContainer: {
+    height: 65,
+  },
   buttonText: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: 'white',
+    color: Colors.defaultColor,
+  },
+  buttonContainer: {
+    backgroundColor: Colors.secondary,
+    borderRadius:10,
+    height: 48,
+    marginVertical: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

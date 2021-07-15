@@ -23,7 +23,7 @@ export const welcomeScreenStyles = StyleSheet.create({
   },
   footerBtnWrapper: {
     margin: 20,
-    flex:.4,
+    flex:.3,
     justifyContent: 'center',
     alignItems: 'center',
   },

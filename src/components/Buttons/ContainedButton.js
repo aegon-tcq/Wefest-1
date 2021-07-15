@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {containedbuttonStyles as buttonStyles} from 'styles/components/buttonStyles';
 
 const ContainedButton = ({
@@ -7,12 +7,15 @@ const ContainedButton = ({
   btnStyle = {},
   textStyle = {},
   onPress = () => {},
+  isUpperCase = false,
 }) => {
   return (
     <TouchableOpacity
       style={[buttonStyles.buttonContainer, btnStyle]}
       onPress={onPress}>
-      <Text style={[buttonStyles.buttonText, textStyle]}>{btnText}</Text>
+      <Text style={[buttonStyles.buttonText, textStyle]}>
+        {isUpperCase ? btnText.toUpperCase() : btnText}
+      </Text>
     </TouchableOpacity>
   );
 };

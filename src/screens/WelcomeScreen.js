@@ -1,11 +1,12 @@
 import React from 'react';
 import {Image, Text, View} from 'react-native';
-import ContainedButton from 'components/Buttons/ContainedButton';
 import TextButton from 'components/Buttons/TextButton';
-import {globalStyles} from 'styles/screens/globalStyles';
+import {globalStyles} from 'styles/globalStyles';
 import {welcomeScreenStyles} from 'styles/screens/welcomeScreenStyles';
+import {loginScreenRoute} from '/navigation/screenNames';
+import GradientButton from 'components/Buttons/GradientButton';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({navigation}) => {
   return (
     <View style={globalStyles.screenView}>
       <View style={welcomeScreenStyles.headerStyle}>
@@ -14,8 +15,8 @@ const WelcomeScreen = () => {
       <View style={welcomeScreenStyles.imageWrapper}>
         <Image
           style={{
-            width: 280,
-            height: 280,
+            width: 270,
+            height: 270,
           }}
           source={require('../assets/welcome.jpeg')}
         />
@@ -26,10 +27,10 @@ const WelcomeScreen = () => {
           justifyContent: 'flex-end',
         }}>
         <View style={welcomeScreenStyles.btnWrapper}>
-          <ContainedButton btnText="Register Now" />
+          <GradientButton btnText="Register Now" />
         </View>
         <View style={welcomeScreenStyles.btnWrapper}>
-          <ContainedButton btnText="Register Later" />
+          <GradientButton btnText="Register Later" />
         </View>
       </View>
       <View style={welcomeScreenStyles.footerBtnWrapper}>
@@ -37,9 +38,11 @@ const WelcomeScreen = () => {
           btnText="Login As Admin"
           isUpperCase={true}
           btnStyle={welcomeScreenStyles.footerBtn}
+          onPress={() => {
+            navigation.push(loginScreenRoute);
+          }}
         />
       </View>
-
     </View>
   );
 };

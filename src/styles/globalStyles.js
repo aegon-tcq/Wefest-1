@@ -9,5 +9,11 @@ export const globalStyles = StyleSheet.create({
   screenView: {
     flex: 1,
     padding: 10,
+    backgroundColor: Colors.defaultColor,
   },
+  flexCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
 });
