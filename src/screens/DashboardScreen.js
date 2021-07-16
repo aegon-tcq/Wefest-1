@@ -1,11 +1,13 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, View, Dimensions} from 'react-native';
 import {dashboardScreenStyles as styles} from 'styles/screens/dashboardScreenStyles';
 import {globalStyles} from 'styles/globalStyles';
 import ContainedButton from 'components/Buttons/ContainedButton';
 import {systemWeights, human} from 'react-native-typography';
 import NavigationHeader from 'components/NavigationHeader';
 import Colors from 'constants/Colors';
+import {BoxShadow} from 'react-native-shadow';
+import {eventsScreenRoute, directoryScreenRoute} from 'navigation/screenNames';
 
 const dashboardItems = [
   {
@@ -14,7 +16,7 @@ const dashboardItems = [
   },
   {
     screenName: 'Events',
-    routeName: '',
+    routeName: eventsScreenRoute,
   },
   {
     screenName: 'Attendance',
@@ -30,7 +32,7 @@ const dashboardItems = [
   },
   {
     screenName: 'Directory',
-    routeName: '',
+    routeName: directoryScreenRoute,
   },
   {
     screenName: 'Announcements',
@@ -47,6 +49,17 @@ const dashboardItems = [
 ];
 
 const DashboardScreen = ({navigation}) => {
+  const shadowOpt = {
+    height: 50,
+    width: Dimensions.get('screen').width - 50,
+    color: '#E9948D',
+    border: 3,
+    radius: 12,
+    opacity: 0.2,
+    x: 0,
+    y: -1,
+    style: {marginVertical: 7, borderRadius: 10},
+  };
   return (
     <View style={globalStyles.screenView}>
       <NavigationHeader
@@ -62,18 +75,24 @@ const DashboardScreen = ({navigation}) => {
           data={dashboardItems}
           renderItem={({item}) => {
             return (
-              <ContainedButton
-                btnText={item.screenName}
-                onPress={() => {}}
-                isUpperCase={true}
-                btnStyle={{
-                  elevation: 6,
-                }}
-                textStyle={{
-                  ...systemWeights.regular,
-                  color: 'black',
-                }}
-              />
+              <BoxShadow setting={shadowOpt}>
+                <ContainedButton
+                  btnText={item.screenName}
+                  onPress={() => {
+                    if (item.routeName) {
+                      navigation.navigate(item.routeName);
+                    }
+                  }}
+                  isUpperCase={true}
+                  btnStyle={{
+                    elevation: 6,
+                  }}
+                  textStyle={{
+                    ...systemWeights.regular,
+                    color: 'black',
+                  }}
+                />
+              </BoxShadow>
             );
           }}
         />
@@ -83,11 +102,11 @@ const DashboardScreen = ({navigation}) => {
           btnText="About Us"
           onPress={() => {}}
           isUpperCase={true}
+          variant="secondary"
           btnStyle={{
             elevation: 6,
             height: 40,
             paddingHorizontal: 10,
-            backgroundColor: Colors.primary,
           }}
           textStyle={{
             ...human.body,
@@ -98,11 +117,11 @@ const DashboardScreen = ({navigation}) => {
           btnText="Contact Us"
           onPress={() => {}}
           isUpperCase={true}
+          variant="secondary"
           btnStyle={{
             elevation: 6,
             height: 40,
             paddingHorizontal: 10,
-            backgroundColor: Colors.primary,
           }}
           textStyle={{
             ...human.body,

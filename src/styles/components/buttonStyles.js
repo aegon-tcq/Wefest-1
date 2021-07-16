@@ -16,13 +16,15 @@ export const containedbuttonStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.defaultColor,
   },
-  buttonContainer: {
-    backgroundColor: Colors.secondary,
-    borderRadius:10,
+  primary: {
+    backgroundColor: Colors.primary,
+    borderRadius: 10,
     height: 48,
-    marginVertical: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  secondary: {
+    backgroundColor: Colors.secondary,
+    borderRadius: 10,
+    height: 48,
   },
 });
 

@@ -16,7 +16,7 @@ const GradientButton = ({
       style={[buttonStyles.gButtonContainer, btnContainerStyle]}
       onPress={onPress}>
       <LinearGradient
-        colors={[Colors.secondary, Colors.secondaryLight]}
+        colors={[Colors.primary, Colors.primaryLight]}
         style={[buttonStyles.gradientContainer, gradientContainerStyle]}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}>

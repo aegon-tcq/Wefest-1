@@ -4,7 +4,7 @@ import Colors from 'constants/Colors';
 export const inputFormStyles = StyleSheet.create({
   inputContainer: {
     marginVertical: 8,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.secondary,
     paddingHorizontal: 14,
     paddingVertical: 6,
     borderRadius: 10,

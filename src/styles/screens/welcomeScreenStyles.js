@@ -10,7 +10,7 @@ export const welcomeScreenStyles = StyleSheet.create({
   },
   headerText: {
     fontSize: 35,
-    color: Colors.primary,
+    color: Colors.secondary,
     fontWeight: '900',
   },
   imageWrapper: {
@@ -23,12 +23,12 @@ export const welcomeScreenStyles = StyleSheet.create({
   },
   footerBtnWrapper: {
     margin: 20,
-    flex:.3,
+    flex: 0.3,
     justifyContent: 'center',
     alignItems: 'center',
   },
   footerBtn: {
-    borderBottomColor: Colors.primary,
+    borderBottomColor: Colors.secondary,
     borderBottomWidth: 2,
     width: 200,
   },
