@@ -5,12 +5,12 @@ import ContainedButton from 'components/Buttons/ContainedButton';
 import FilterView from 'components/FilterView';
 import {globalStyles} from 'styles/globalStyles';
 import ExpandedCard from 'components/ExpandedCard';
-import IconButton from 'components/Buttons/IconButton';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import Colors from 'constants/Colors';
 import {human} from 'react-native-typography';
 
-const DirectoryItem = ({item}) => {
+const announcementColors = [Colors.primary, Colors.brown, Colors.pinkShade1];
+
+const AnnouncementItem = ({item, index}) => {
   const [open, setOpen] = React.useState(false);
   const contentLeft = () => (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -26,54 +26,25 @@ const DirectoryItem = ({item}) => {
         }}
       />
       <View>
-        <Text style={human.title3White}>Username</Text>
-        <Text style={{...human.bodyWhiteObject, marginTop: 5}}>
-          {'user Role'.toUpperCase()}
-        </Text>
+        <Text style={human.title3}>NAME</Text>
+        <Text style={{...human.bodyObject, marginTop: 5}}>{'Award'}</Text>
       </View>
     </View>
   );
 
   const contentRight = () => (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-      <IconButton
-        icon={
-          <FeatherIcon
-            name="mail"
-            style={{
-              color: '#fff',
-              fontSize: 32,
-            }}
-          />
-        }
-        btnStyle={{
-          backgroundColor: '#ED4435',
-          borderRadius: 25,
-          marginRight: 10,
-        }}
-      />
-      <IconButton
-        icon={
-          <FeatherIcon
-            name="phone"
-            style={{
-              color: '#fff',
-              fontSize: 32,
-            }}
-          />
-        }
-        btnStyle={{
-          backgroundColor: '#35C635',
-          borderRadius: 25,
-        }}
-      />
+      <Text style={human.title3}>Date</Text>
     </View>
   );
   return (
     <ExpandedCard
-      cardColor={Colors.secondary}
+      cardColor={announcementColors[index % announcementColors.length]}
       expanded={open}
       onPress={() => setOpen(!open)}
+      cardStyle={{
+        borderRadius: 25,
+      }}
       cardContent={
         <View style={{...globalStyles.rowSb, flex: 1}}>
           {contentLeft()}
@@ -88,18 +59,10 @@ const DirectoryItem = ({item}) => {
   );
 };
 
-const DirectoryScreen = () => {
-  const renderSeparator = () => (
-    <View
-      style={{
-        backgroundColor: 'grey',
-        height: 1,
-      }}
-    />
-  );
+const AnnouncementsScreen = () => {
   return (
     <View style={globalStyles.rootView}>
-      <AppHeader title="Directory" />
+      <AppHeader title="Announcements" />
       <FilterView />
       <View
         style={{
@@ -108,9 +71,8 @@ const DirectoryScreen = () => {
         }}>
         <FlatList
           data={[0, 1, 2, 3, 4]}
-          ItemSeparatorComponent={renderSeparator}
-          renderItem={({item}) => {
-            return <DirectoryItem key={item} />;
+          renderItem={({item, index}) => {
+            return <AnnouncementItem key={item} index={index} />;
           }}
         />
       </View>
@@ -120,7 +82,7 @@ const DirectoryScreen = () => {
           paddingHorizontal: 30,
         }}>
         <ContainedButton
-          btnText="Add New Member"
+          btnText="Add New Announcement"
           addIcon={true}
           variant="secondary"
           btnStyle={{
@@ -134,4 +96,4 @@ const DirectoryScreen = () => {
   );
 };
 
-export default DirectoryScreen;
+export default AnnouncementsScreen;

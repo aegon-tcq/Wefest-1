@@ -16,6 +16,7 @@ const EventCard = ({
   date = 'Date',
   name = 'Name',
   onPressEdit,
+  showEdit = true,
 }) => {
   return (
     <View style={eventCardStyles.card}>
@@ -45,11 +46,13 @@ const EventCard = ({
           </Text>
         </View>
       </View>
-      <TextButton
-        onPress={onPressEdit}
-        btnText={label}
-        btnStyle={[eventCardStyles.cardlabel, labelStyle]}
-      />
+      {showEdit && (
+        <TextButton
+          onPress={onPressEdit}
+          btnText={label}
+          btnStyle={[eventCardStyles.cardlabel, labelStyle]}
+        />
+      )}
     </View>
   );
 };

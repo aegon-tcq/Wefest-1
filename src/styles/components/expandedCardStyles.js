@@ -3,9 +3,10 @@ import Colors from 'constants/Colors';
 
 export const expandedCardStyles = StyleSheet.create({
   rootContainer: {
-
+    marginVertical: 10,
   },
   card: {
+    elevation: 5,
     width: '100%',
     height: 'auto',
     borderRadius: 10,
@@ -14,11 +15,8 @@ export const expandedCardStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.secondary,
-    marginVertical: 10,
   },
   expandingView: {
-    borderTopColor: 'grey',
-    borderTopWidth: 1,
     paddingHorizontal: 30,
     paddingVertical: 20,
   },

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { View} from 'react-native';
 import NavigationHeader from 'components/NavigationHeader';
 import ContainedButton from 'components/Buttons/ContainedButton';
 import {globalStyles} from 'styles/globalStyles';

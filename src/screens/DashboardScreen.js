@@ -1,52 +1,12 @@
 import React from 'react';
-import {FlatList, Text, View, Dimensions} from 'react-native';
+import {FlatList, View, Dimensions} from 'react-native';
 import {dashboardScreenStyles as styles} from 'styles/screens/dashboardScreenStyles';
 import {globalStyles} from 'styles/globalStyles';
 import ContainedButton from 'components/Buttons/ContainedButton';
 import {systemWeights, human} from 'react-native-typography';
 import NavigationHeader from 'components/NavigationHeader';
-import Colors from 'constants/Colors';
 import {BoxShadow} from 'react-native-shadow';
-import {eventsScreenRoute, directoryScreenRoute} from 'navigation/screenNames';
-
-const dashboardItems = [
-  {
-    screenName: 'Home Page',
-    routeName: '',
-  },
-  {
-    screenName: 'Events',
-    routeName: eventsScreenRoute,
-  },
-  {
-    screenName: 'Attendance',
-    routeName: '',
-  },
-  {
-    screenName: 'My Events',
-    routeName: '',
-  },
-  {
-    screenName: 'Gallery',
-    routeName: '',
-  },
-  {
-    screenName: 'Directory',
-    routeName: directoryScreenRoute,
-  },
-  {
-    screenName: 'Announcements',
-    routeName: '',
-  },
-  {
-    screenName: 'React Out',
-    routeName: '',
-  },
-  {
-    screenName: 'Leaderboards',
-    routeName: '',
-  },
-];
+import {dashboardRoutes} from './dashboardRoutes';
 
 const DashboardScreen = ({navigation}) => {
   const shadowOpt = {
@@ -72,7 +32,7 @@ const DashboardScreen = ({navigation}) => {
       <View style={styles.container}>
         <FlatList
           keyExtractor={item => item.screenName}
-          data={dashboardItems}
+          data={dashboardRoutes}
           renderItem={({item}) => {
             return (
               <BoxShadow setting={shadowOpt}>
