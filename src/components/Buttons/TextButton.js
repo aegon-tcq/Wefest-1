@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import {textButtonStyles as buttonStyles} from 'styles/components/buttonStyles';
+import {textButtonStyles as buttonStyles} from '../../styles/components/buttonStyles';
 
 const TextButton = ({
   btnText = 'Button',

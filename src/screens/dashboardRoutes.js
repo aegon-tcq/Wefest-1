@@ -4,7 +4,7 @@ import {
   announcementScreenRoute,
   myEventsScreenRoute,
   galleryScreenRoute,
-} from 'navigation/screenNames';
+} from '../navigation/screenNames';
 
 export const dashboardRoutes = [
   {

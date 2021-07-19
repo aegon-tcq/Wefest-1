@@ -1,14 +1,14 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import WelcomeScreen from 'screens/WelcomeScreen';
-import LoginScreen from 'screens/LoginScreen';
-import DashboardScreen from 'screens/DashboardScreen';
-import EventsScreen from 'screens/EventsScreen';
-import EditEventScreen from 'screens/EditEventScreen';
-import DirectoryScreen from 'screens/DirectoryScreen';
-import AnnouncementsScreen from 'screens/AnnouncementsScreen';
-import MyEventsScreen from 'screens/MyEventsScreen';
-import GalleryScreen from 'screens/GalleryScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
+import LoginScreen from '../screens/LoginScreen';
+import DashboardScreen from '../screens/DashboardScreen';
+import EventsScreen from '../screens/EventsScreen';
+import EditEventScreen from '../screens/EditEventScreen';
+import DirectoryScreen from '../screens/DirectoryScreen';
+import AnnouncementsScreen from '../screens/AnnouncementsScreen';
+import MyEventsScreen from '../screens/MyEventsScreen';
+import GalleryScreen from '../screens/GalleryScreen';
 
 import {
   welcomeScreenRoute,

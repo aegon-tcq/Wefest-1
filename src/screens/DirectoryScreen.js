@@ -1,13 +1,13 @@
 import React from 'react';
 import {Text, View, Image, FlatList} from 'react-native';
-import AppHeader from 'components/AppHeader';
-import ContainedButton from 'components/Buttons/ContainedButton';
-import FilterView from 'components/FilterView';
-import {globalStyles} from 'styles/globalStyles';
-import ExpandedCard from 'components/ExpandedCard';
-import IconButton from 'components/Buttons/IconButton';
+import AppHeader from '../components/AppHeader';
+import ContainedButton from '../components/Buttons/ContainedButton';
+import FilterView from '../components/FilterView';
+import {globalStyles} from '../styles/globalStyles';
+import ExpandedCard from '../components/ExpandedCard';
+import IconButton from '../components/Buttons/IconButton';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import Colors from 'constants/Colors';
+import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 
 const DirectoryItem = ({item}) => {

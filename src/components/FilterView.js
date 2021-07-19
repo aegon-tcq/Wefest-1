@@ -2,9 +2,9 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import Colors from 'constants/Colors';
-import {globalStyles} from 'styles/globalStyles';
-import IconButton from 'components/Buttons/IconButton';
+import Colors from '../constants/Colors';
+import {globalStyles} from '../styles/globalStyles';
+import IconButton from '../components/Buttons/IconButton';
 import {human} from 'react-native-typography';
 
 const FilterView = ({

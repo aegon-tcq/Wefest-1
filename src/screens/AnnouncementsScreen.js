@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, View, Image, FlatList} from 'react-native';
-import AppHeader from 'components/AppHeader';
-import ContainedButton from 'components/Buttons/ContainedButton';
-import FilterView from 'components/FilterView';
-import {globalStyles} from 'styles/globalStyles';
-import ExpandedCard from 'components/ExpandedCard';
-import Colors from 'constants/Colors';
+import AppHeader from '../components/AppHeader';
+import ContainedButton from '../components/Buttons/ContainedButton';
+import FilterView from '../components/FilterView';
+import {globalStyles} from '../styles/globalStyles';
+import ExpandedCard from '../components/ExpandedCard';
+import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 
 const announcementColors = [Colors.primary, Colors.brown, Colors.pinkShade1];

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {containedbuttonStyles as buttonStyles} from 'styles/components/buttonStyles';
+import {containedbuttonStyles as buttonStyles} from '../../styles/components/buttonStyles';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import {globalStyles} from 'styles/globalStyles';
+import {globalStyles} from '../../styles/globalStyles';
 
 const ContainedButton = ({
   btnText = 'Button',

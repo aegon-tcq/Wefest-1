@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
-import AppHeader from 'components/AppHeader';
-import {globalStyles} from 'styles/globalStyles';
-import FilterView from 'components/FilterView';
-import ContainedButton from 'components/Buttons/ContainedButton';
-import EventCard from 'components/EventCard';
-import {cardColors} from 'styles/components/eventCardStyles';
-import {eventEditRoute} from 'navigation/screenNames';
+import AppHeader from '../components/AppHeader';
+import {globalStyles} from '../styles/globalStyles';
+import FilterView from '../components/FilterView';
+import ContainedButton from '../components/Buttons/ContainedButton';
+import EventCard from '../components/EventCard';
+import {cardColors} from '../styles/components/eventCardStyles';
+import {eventEditRoute} from '../navigation/screenNames';
 const EventsScreen = ({navigation}) => {
   return (
     <View style={{flex: 1}}>

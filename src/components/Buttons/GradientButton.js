@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {containedbuttonStyles as buttonStyles} from 'styles/components/buttonStyles';
+import {containedbuttonStyles as buttonStyles} from '../../styles/components/buttonStyles';
 import LinearGradient from 'react-native-linear-gradient';
-import Colors from 'constants/Colors';
+import Colors from '../../constants/Colors';
 
 const GradientButton = ({
   btnText = 'Button',

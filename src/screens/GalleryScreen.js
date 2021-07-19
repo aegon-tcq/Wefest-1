@@ -1,11 +1,11 @@
 import React from 'react';
 import {FlatList, View, Text} from 'react-native';
 import CheckBox from 'react-native-check-box';
-import AppHeader from 'components/AppHeader';
-import ContainedButton from 'components/Buttons/ContainedButton';
-import {galleryScreenStyles} from 'styles/screens/galleryScreenStyles';
-import {globalStyles} from 'styles/globalStyles';
-import FilterView from 'components/FilterView';
+import AppHeader from '../components/AppHeader';
+import ContainedButton from '../components/Buttons/ContainedButton';
+import {galleryScreenStyles} from '../styles/screens/galleryScreenStyles';
+import {globalStyles} from '../styles/globalStyles';
+import FilterView from '../components/FilterView';
 import {human} from 'react-native-typography';
 
 const GalleryItem = ({isEdit}) => {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { View} from 'react-native';
-import NavigationHeader from 'components/NavigationHeader';
-import ContainedButton from 'components/Buttons/ContainedButton';
-import {globalStyles} from 'styles/globalStyles';
-import AppHeader from 'components/AppHeader';
+import {View} from 'react-native';
+import NavigationHeader from '../components/NavigationHeader';
+import ContainedButton from '../components/Buttons/ContainedButton';
+import {globalStyles} from '../styles/globalStyles';
+import AppHeader from '../components/AppHeader';
 
 const EditEventScreen = ({navigation}) => {
   const options = [

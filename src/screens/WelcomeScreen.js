@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, Text, View} from 'react-native';
-import TextButton from 'components/Buttons/TextButton';
-import {globalStyles} from 'styles/globalStyles';
-import {welcomeScreenStyles} from 'styles/screens/welcomeScreenStyles';
-import {loginScreenRoute} from 'navigation/screenNames';
-import GradientButton from 'components/Buttons/GradientButton';
+import TextButton from '../components/Buttons/TextButton';
+import {globalStyles} from '../styles/globalStyles';
+import {welcomeScreenStyles} from '../styles/screens/welcomeScreenStyles';
+import {loginScreenRoute} from '../navigation/screenNames';
+import GradientButton from '../components/Buttons/GradientButton';
 
 const WelcomeScreen = ({navigation}) => {
   return (

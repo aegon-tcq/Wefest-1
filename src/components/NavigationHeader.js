@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import IconButton from 'components/Buttons/IconButton';
+import IconButton from '../components/Buttons/IconButton';
 
 const NavigationHeader = ({navigation, style = {}}) => {
   return (

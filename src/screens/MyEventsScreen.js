@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
-import AppHeader from 'components/AppHeader';
-import EventCard from 'components/EventCard';
-import {cardColors} from 'styles/components/eventCardStyles';
+import AppHeader from '../components/AppHeader';
+import EventCard from '../components/EventCard';
+import {cardColors} from '../styles/components/eventCardStyles';
 
 const MyEventsScreen = ({navigation}) => {
   return (

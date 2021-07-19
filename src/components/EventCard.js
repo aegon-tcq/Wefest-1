@@ -1,6 +1,9 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {cardColors, eventCardStyles} from 'styles/components/eventCardStyles';
+import {
+  cardColors,
+  eventCardStyles,
+} from '../styles/components/eventCardStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import TextButton from './Buttons/TextButton';
 
