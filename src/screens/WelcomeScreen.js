@@ -1,9 +1,10 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Text, View, TouchableOpacity} from 'react-native';
 import TextButton from 'components/Buttons/TextButton';
 import {globalStyles} from 'styles/globalStyles';
 import {welcomeScreenStyles} from 'styles/screens/welcomeScreenStyles';
-import {loginScreenRoute} from '/navigation/screenNames';
+import {loginScreenRoute,RegisterScreenRoute} from '/navigation/screenNames';
+import {StudentDashboardScreenRoute} from '/navigation/screenNames';
 import GradientButton from 'components/Buttons/GradientButton';
 
 const WelcomeScreen = ({navigation}) => {
@@ -27,15 +28,21 @@ const WelcomeScreen = ({navigation}) => {
           justifyContent: 'flex-end',
         }}>
         <View style={welcomeScreenStyles.btnWrapper}>
-          <GradientButton btnText="Register Now" />
+          <GradientButton onPress={()=>{
+            navigation.push(RegisterScreenRoute);
+          }} btnText="Register Now" />
         </View>
-        <View style={welcomeScreenStyles.btnWrapper}>
-          <GradientButton btnText="Register Later" />
+        <View 
+        style={welcomeScreenStyles.btnWrapper}>
+          <GradientButton onPress={() => {
+            navigation.push(StudentDashboardScreenRoute);
+          }}
+           btnText="Register Later" />
         </View>
       </View>
       <View style={welcomeScreenStyles.footerBtnWrapper}>
         <TextButton
-          btnText="Login As Admin"
+          btnText="Login As User"
           isUpperCase={true}
           btnStyle={welcomeScreenStyles.footerBtn}
           onPress={() => {
