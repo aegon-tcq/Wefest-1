@@ -9,6 +9,17 @@ import NavigationHeader from '../components/NavigationHeader';
 import {dashboardScreenRoute} from '../navigation/screenNames';
 
 const LoginScreen = ({navigation}) => {
+  const [loginForm, setLoginForm] = React.useState({
+    username: '',
+    password: '',
+  });
+
+  const handleInputChange = (key, value) => {
+    setLoginForm({
+      ...loginForm,
+      [key]: value,
+    });
+  };
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <NavigationHeader navigation={navigation} />
@@ -25,8 +36,18 @@ const LoginScreen = ({navigation}) => {
             flex: 2,
             padding: 20,
           }}>
-          <FormInput labelText="Enter Username" />
-          <FormInput labelText="Enter Password" />
+          <FormInput
+            labelText="Enter Username"
+            onChangeText={handleInputChange}
+            name="username"
+            value={loginForm.username}
+          />
+          <FormInput
+            labelText="Enter Password"
+            onChangeText={handleInputChange}
+            name="password"
+            value={loginForm.password}
+          />
           <TextButton
             btnText="Forgot Password?"
             btnStyle={{

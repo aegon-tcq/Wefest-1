@@ -107,6 +107,7 @@ const DirectoryScreen = () => {
           paddingHorizontal: 15,
         }}>
         <FlatList
+          keyExtractor={item => item}
           data={[0, 1, 2, 3, 4]}
           ItemSeparatorComponent={renderSeparator}
           renderItem={({item}) => {

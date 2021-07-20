@@ -70,6 +70,7 @@ const AnnouncementsScreen = () => {
           paddingHorizontal: 15,
         }}>
         <FlatList
+          keyExtractor={item => item}
           data={[0, 1, 2, 3, 4]}
           renderItem={({item, index}) => {
             return <AnnouncementItem key={item} index={index} />;

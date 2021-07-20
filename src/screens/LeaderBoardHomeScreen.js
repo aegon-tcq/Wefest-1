@@ -6,7 +6,7 @@ import {systemWeights, human} from 'react-native-typography';
 import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {LeaderBoardHowToEarnScreenRoute,
-  LeaderBoardLeaderShipScreenRoute} from 'navigation/screenNames';
+  LeaderBoardLeaderShipScreenRoute} from '../navigation/screenNames';
 
 
 const dashboardItems = [
