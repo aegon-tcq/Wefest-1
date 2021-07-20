@@ -26,7 +26,7 @@ const RegisterScreen = ({navigation}) => {
 
   const handleInputChange = (key, value) => {
     setRegisterForm({
-      ...loginForm,
+      ...registerForm,
       [key]: value,
     });
   };
