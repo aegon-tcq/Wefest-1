@@ -9,7 +9,10 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 // import {ReachusRoutes} from './ReachusRoutes';
 import AppHeader from '../components/AppHeader';
-
+import {
+  ReachUs2ScreenRoute
+} from '../navigation/screenNames';
+import ReachUs2Screen from './ReachUs2Screen';
 const ReachusRoutes = [
   {
     screenName: 'Name',
@@ -91,7 +94,9 @@ const ReachUs1Screen = ({navigation}) => {
           }}></Image>
         <TouchableOpacity
         style={{alignItems:"flex-end",width:"100%",padding:15}}
-        onPress={()=>{}}
+        onPress={()=>{
+          navigation.push(ReachUs2ScreenRoute);
+        }}
         >
           <Text style={{borderBottomWidth:1,fontSize:18}}>Next</Text>
         </TouchableOpacity>

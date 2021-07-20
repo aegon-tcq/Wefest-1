@@ -1,10 +1,12 @@
 import React from 'react';
 import {FlatList, View, Dimensions, Text, Image, ScrollView} from 'react-native';
-import {globalStyles} from 'styles/globalStyles';
-import ContainedButton from 'components/Buttons/ContainedButton';
+import {globalStyles} from '../styles/globalStyles';
+import ContainedButton from '../components/Buttons/ContainedButton';
 import {systemWeights, human} from 'react-native-typography';
 import {BoxShadow} from 'react-native-shadow';
 import AppHeader from '../components/AppHeader';
+
+
 const Reachus2Routes =  [
   {
     screenName: 'Mail ID ',

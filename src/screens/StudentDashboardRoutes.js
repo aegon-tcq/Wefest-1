@@ -3,8 +3,8 @@ import {
     directoryScreenRoute,
     announcementScreenRoute,
     galleryScreenRoute,
-    LeaderBoardHomeScreenRoute
-  } from 'navigation/screenNames';
+    LeaderBoardHomeScreenRoute,
+  } from '../navigation/screenNames';
   
   export const dashboardRoutes = [
     {

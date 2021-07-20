@@ -1,13 +1,13 @@
 import React from 'react';
 import {Text, View, Image, FlatList} from 'react-native';
-import AppHeader from 'components/AppHeader';
-import ContainedButton from 'components/Buttons/ContainedButton';
-import FilterView from 'components/FilterView';
-import {globalStyles} from 'styles/globalStyles';
-import ExpandedCard from 'components/ExpandedCard';
-import IconButton from 'components/Buttons/IconButton';
+import AppHeader from '../components/AppHeader';
+import ContainedButton from '../components/Buttons/ContainedButton';
+import FilterView from '../components/FilterView';
+import {globalStyles} from '../styles/globalStyles';
+import ExpandedCard from '../components/ExpandedCard';
+import IconButton from '../components/Buttons/IconButton';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import Colors from 'constants/Colors';
+import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 
 const DirectoryItem = ({item}) => {
@@ -89,6 +89,14 @@ const DirectoryItem = ({item}) => {
 };
 
 const DirectoryScreen = () => {
+  const renderSeparator = () => (
+    <View
+      style={{
+        backgroundColor: 'grey',
+        height: 1,
+      }}
+    />
+  );
   return (
     <View style={globalStyles.rootView}>
       <AppHeader title="Directory" />
@@ -100,8 +108,9 @@ const DirectoryScreen = () => {
         }}>
         <FlatList
           data={[0, 1, 2, 3, 4]}
+          ItemSeparatorComponent={renderSeparator}
           renderItem={({item}) => {
-            return <DirectoryItem />;
+            return <DirectoryItem key={item} />;
           }}
         />
       </View>

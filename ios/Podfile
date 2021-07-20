@@ -18,6 +18,7 @@ target 'Wefest' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+
   target 'WefestTests' do
     inherit! :complete
     # Pods for testing

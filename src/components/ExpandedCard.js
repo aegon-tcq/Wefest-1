@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {expandedCardStyles} from 'styles/components/expandedCardStyles';
-import Colors from 'constants/Colors';
+import {expandedCardStyles} from '../styles/components/expandedCardStyles';
+import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 
 const ExpandedCard = ({

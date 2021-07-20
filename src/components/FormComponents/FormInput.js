@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TextInput, View} from 'react-native';
-import {inputFormStyles} from 'styles/components/formStyles';
+import {inputFormStyles} from '../../styles/components/formStyles';
 
 const FormInput = ({
   labelText = 'Input Label',

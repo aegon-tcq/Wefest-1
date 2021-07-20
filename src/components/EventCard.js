@@ -1,6 +1,9 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {cardColors, eventCardStyles} from 'styles/components/eventCardStyles';
+import {
+  cardColors,
+  eventCardStyles,
+} from '../styles/components/eventCardStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import TextButton from './Buttons/TextButton';
 
@@ -16,6 +19,7 @@ const EventCard = ({
   date = 'Date',
   name = 'Name',
   onPressEdit,
+  showEdit = true,
 }) => {
   return (
     <View style={eventCardStyles.card}>
@@ -45,11 +49,13 @@ const EventCard = ({
           </Text>
         </View>
       </View>
-      <TextButton
-        onPress={onPressEdit}
-        btnText={label}
-        btnStyle={[eventCardStyles.cardlabel, labelStyle]}
-      />
+      {showEdit && (
+        <TextButton
+          onPress={onPressEdit}
+          btnText={label}
+          btnStyle={[eventCardStyles.cardlabel, labelStyle]}
+        />
+      )}
     </View>
   );
 };

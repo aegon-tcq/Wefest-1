@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, KeyboardAvoidingView} from 'react-native';
-import FormInput from 'components/FormComponents/FormInput';
-import {globalStyles} from 'styles/globalStyles';
-import GradientButton from 'components/Buttons/GradientButton';
+import {Text, View, KeyboardAvoidingView} from 'react-native';
+import FormInput from '../components/FormComponents/FormInput';
+import {globalStyles} from '../styles/globalStyles';
+import GradientButton from '../components/Buttons/GradientButton';
 import {human} from 'react-native-typography';
-import TextButton from 'components/Buttons/TextButton';
-import NavigationHeader from 'components/NavigationHeader';
-import {dashboardScreenRoute} from 'navigation/screenNames';
+import TextButton from '../components/Buttons/TextButton';
+import NavigationHeader from '../components/NavigationHeader';
+import {dashboardScreenRoute} from '../navigation/screenNames';
 
 const LoginScreen = ({navigation}) => {
   return (
