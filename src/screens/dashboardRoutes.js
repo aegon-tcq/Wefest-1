@@ -4,6 +4,13 @@ import {
   announcementScreenRoute,
   myEventsScreenRoute,
   galleryScreenRoute,
+  ReachUs1ScreenRoute,
+  ReachUs2ScreenRoute,
+  AttendanceScreenRoute,
+  StudentDashboardScreenRoute,
+  LeaderBoardHomeScreenRoute,
+  LeaderBoardHowToEarnScreenRoute,
+  LeaderBoardLeaderShipScreenRoute
 } from '../navigation/screenNames';
 
 export const dashboardRoutes = [
@@ -17,7 +24,7 @@ export const dashboardRoutes = [
   },
   {
     screenName: 'Attendance',
-    routeName: '',
+    routeName: AttendanceScreenRoute,
   },
   {
     screenName: 'My Events',
@@ -37,10 +44,10 @@ export const dashboardRoutes = [
   },
   {
     screenName: 'React Out',
-    routeName: '',
+    routeName: ReachUs1ScreenRoute,
   },
   {
     screenName: 'Leaderboards',
-    routeName: '',
+    routeName: LeaderBoardHomeScreenRoute,
   },
 ];
