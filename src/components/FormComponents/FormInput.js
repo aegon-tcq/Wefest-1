@@ -15,14 +15,23 @@ const FormInput = ({
   return (
     <View style={[inputFormStyles.inputContainer, inputContainerStyle]}>
       <Text style={[inputFormStyles.inputLabel, labelStyle]}>{labelText}</Text>
-      <TextInput
-        placeholder={placeHolder}
-        placeholderTextColor="grey"
-        value={value}
-        onChangeText={text => onChangeText(name, text)}
-        style={[inputFormStyles.inputStyle, inputStyle]}
-        secureTextEntry={name === 'password'}
-      />
+      {value ? (
+        <TextInput
+          placeholder={placeHolder}
+          placeholderTextColor="grey"
+          value={value}
+          onChangeText={text => onChangeText(name, text)}
+          style={[inputFormStyles.inputStyle, inputStyle]}
+          secureTextEntry={name === 'password'}
+        />
+      ) : (
+        <TextInput
+          placeholder={placeHolder}
+          placeholderTextColor="grey"
+          style={[inputFormStyles.inputStyle, inputStyle]}
+          secureTextEntry={name === 'password'}
+        />
+      )}
     </View>
   );
 };

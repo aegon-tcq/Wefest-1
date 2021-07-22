@@ -5,6 +5,7 @@ import {galleryReducer} from './galleryReducer';
 import {directoryReducer} from './directoryReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistStore, persistReducer} from 'redux-persist';
+import {authReducer} from './authReducer';
 
 const persistConfig = {
   key: 'root',
@@ -13,6 +14,7 @@ const persistConfig = {
 };
 
 export default combineReducers({
+  authState: authReducer,
   eventsState: persistReducer(persistConfig, eventsReducer),
   galleryState: galleryReducer,
   announcementState: announcementReducer,

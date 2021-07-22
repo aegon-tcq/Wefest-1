@@ -7,8 +7,11 @@ import {human} from 'react-native-typography';
 import TextButton from '../components/Buttons/TextButton';
 import NavigationHeader from '../components/NavigationHeader';
 import {dashboardScreenRoute} from '../navigation/screenNames';
+import {useDispatch} from 'react-redux';
+import {setAuthState} from './../redux/actions/authActions';
 
 const LoginScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const [loginForm, setLoginForm] = React.useState({
     username: '',
     password: '',
@@ -69,6 +72,11 @@ const LoginScreen = ({navigation}) => {
               borderRadius: 22,
             }}
             onPress={() => {
+              dispatch(
+                setAuthState({
+                  isAdmin: true,
+                }),
+              );
               navigation.navigate(dashboardScreenRoute);
             }}
           />

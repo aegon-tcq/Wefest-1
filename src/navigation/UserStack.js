@@ -57,7 +57,10 @@ const UserStackScreen = () => {
         name={announcementScreenRoute}
       />
       <UserStack.Screen component={EventsScreen} name={eventsScreenRoute} />
-      <UserStack.Screen component={AttendenceScreen} name={AttendanceScreenRoute} />
+      <UserStack.Screen
+        component={AttendenceScreen}
+        name={AttendanceScreenRoute}
+      />
       <UserStack.Screen component={ReachUs2Screen} name={ReachUs2ScreenRoute} />
       <UserStack.Screen component={ReachUs1Screen} name={ReachUs1ScreenRoute} />
       <UserStack.Screen component={GalleryScreen} name={galleryScreenRoute} />
@@ -79,7 +82,6 @@ const UserStackScreen = () => {
         component={DirectoryScreen}
         name={directoryScreenRoute}
       />
-      <UserStack.Screen component={EventsScreen} name={eventsScreenRoute} />
       <UserStack.Screen component={MyEventsScreen} name={myEventsScreenRoute} />
     </UserStack.Navigator>
   );

@@ -8,6 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import TextButton from './Buttons/TextButton';
 
 const EventCard = ({
+  isAdmin,
   cardColor,
   decorationStyle = {},
   decorationColors = cardColors[0].gradient,

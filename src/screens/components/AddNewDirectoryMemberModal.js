@@ -5,7 +5,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import FormInput from '../../components/FormComponents/FormInput';
 import {globalStyles} from '../../styles/globalStyles';
@@ -14,22 +14,13 @@ import * as ImagePicker from 'react-native-image-picker';
 import ContainedButton from '../../components/Buttons/ContainedButton';
 import {systemWeights, human} from 'react-native-typography';
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default AddNewDirectoryMemberModal = ({
-    onModalClose = ()=>console.log("modal close Btn")
+  onModalClose = () => console.log('modal close Btn'),
 }) => {
-
   const [imageFile, setImageFile] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: '2017', value: '2017'},
-    {label: '2018', value: '2018'},
-    {label: '2019', value: '2019'},
-  ]);
-
   const chooseImage = () => {
     let options = {
       storageOptions: {
@@ -63,66 +54,82 @@ export default AddNewDirectoryMemberModal = ({
   };
 
   return (
-    <KeyboardAvoidingView style={{flex: 1,padding:20}}>
-    <ScrollView style={{flex:1}} contentContainerStyle={{flexGrow:1}} >
-    <TouchableOpacity
-        onPress={onModalClose}
-    >
-    <Feather name="x" size={30} />
-    </TouchableOpacity>
-      <View style={[globalStyles.screenView, {alignItems: 'center',justifyContent:"space-around"}]}>
-        {imageFile === null ? (
-          <TouchableOpacity
-            onPress={chooseImage}
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 40,
-              backgroundColor: '#dd665c',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Feather name="camera" size={50} />
-          </TouchableOpacity>
-        ) : (
-          <Image
-            style={{height: 100, width: 100, borderRadius: 50}}
-            source={{uri: imageFile.fileUri}}
-          />
-        )}
-
+    <KeyboardAvoidingView style={{flex: 1, padding: 20}}>
+      <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
+        <TouchableOpacity onPress={onModalClose}>
+          <Feather name="x" size={30} />
+        </TouchableOpacity>
         <View
-          style={{
-            flex: 1,
-            width: '100%',
-          }}>
-          <FormInput labelText="UserName" />
-          <FormInput labelText="UserRole" />
-          <FormInput labelText="Email " />
-          <FormInput labelText="Phone no." />
-        </View>
+          style={[
+            globalStyles.screenView,
+            {alignItems: 'center', justifyContent: 'space-around'},
+          ]}>
+          {imageFile === null ? (
+            <TouchableOpacity
+              onPress={chooseImage}
+              style={{
+                height: 80,
+                width: 80,
+                borderRadius: 40,
+                backgroundColor: '#dd665c',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Feather name="camera" size={50} />
+            </TouchableOpacity>
+          ) : (
+            <Image
+              style={{height: 100, width: 100, borderRadius: 50}}
+              source={{uri: imageFile.fileUri}}
+            />
+          )}
 
-        <View>
-        <ContainedButton
-          btnText="Submit"
-          onPress={() => {}}
-          isUpperCase={true}
-          variant="secondary"
-          btnStyle={{
-            elevation: 6,
-            height: 40,
-            paddingHorizontal: 10,
-          }}
-          textStyle={{
-            ...human.body,
-            color: 'white',
-          }}
-        />
+          <View
+            style={{
+              flex: 1,
+              width: '100%',
+            }}>
+            <FormInput
+              labelText="UserName"
+              name="username"
+              onChangeText={(name, text) => {}}
+            />
+            <FormInput
+              labelText="UserRole"
+              name="userrole"
+              onChangeText={(name, text) => {}}
+            />
+            <FormInput
+              labelText="Email "
+              name="email"
+              onChangeText={(name, text) => {}}
+            />
+            <FormInput
+              labelText="Phone no."
+              name="phone"
+              onChangeText={(name, text) => {}}
+            />
+          </View>
+
+          <View>
+            <ContainedButton
+              btnText="Submit"
+              onPress={() => {}}
+              isUpperCase={true}
+              variant="secondary"
+              btnStyle={{
+                elevation: 6,
+                height: 40,
+                paddingHorizontal: 10,
+              }}
+              textStyle={{
+                ...human.body,
+                color: 'white',
+              }}
+            />
+          </View>
         </View>
-      </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
-
-

@@ -8,15 +8,14 @@ import EventCard from '../components/EventCard';
 import {cardColors} from '../styles/components/eventCardStyles';
 import {eventEditRoute} from '../navigation/screenNames';
 import AddEventModal from './components/AddEventModal';
-
+import {useSelector} from 'react-redux';
 
 const EventsScreen = ({navigation}) => {
-
   const [addEventModalVisible, setAddEventModalVisible] = React.useState(false);
-
+  const {isAdmin} = useSelector(state => state.authState);
   const changeAddEventModalVisiblity = () => {
     setAddEventModalVisible(!addEventModalVisible);
-  }
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -34,6 +33,7 @@ const EventsScreen = ({navigation}) => {
           renderItem={({item, index}) => {
             return (
               <EventCard
+                showEdit={isAdmin}
                 onPressEdit={() => {
                   navigation.navigate(eventEditRoute);
                 }}
@@ -45,34 +45,33 @@ const EventsScreen = ({navigation}) => {
           }}
         />
       </View>
-      <View
-        style={{
-          paddingHorizontal: 35,
-          paddingVertical: 15,
-        }}>
-        <ContainedButton
-        onPress={changeAddEventModalVisiblity}
-          btnText="Add New Event"
-          isUpperCase={true}
-          variant="secondary"
-          btnStyle={{
-            ...globalStyles.rowCenter,
-          }}
-          addIcon={true}
-        />
-      </View>
+      {isAdmin && (
+        <View
+          style={{
+            paddingHorizontal: 35,
+            paddingVertical: 15,
+          }}>
+          <ContainedButton
+            onPress={changeAddEventModalVisiblity}
+            btnText="Add New Event"
+            isUpperCase={true}
+            variant="secondary"
+            btnStyle={{
+              ...globalStyles.rowCenter,
+            }}
+            addIcon={true}
+          />
+        </View>
+      )}
+
       <Modal
         animationType="slide"
         visible={addEventModalVisible}
         onRequestClose={() => {
-          changeAddEventModalVisiblity()
-        }}
-      >
-        <AddEventModal 
-        onModalClose={changeAddEventModalVisiblity}
-      />
+          changeAddEventModalVisiblity();
+        }}>
+        <AddEventModal onModalClose={changeAddEventModalVisiblity} />
       </Modal>
-      
     </View>
   );
 };

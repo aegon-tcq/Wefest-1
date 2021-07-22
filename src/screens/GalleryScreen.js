@@ -7,6 +7,7 @@ import {galleryScreenStyles} from '../styles/screens/galleryScreenStyles';
 import {globalStyles} from '../styles/globalStyles';
 import FilterView from '../components/FilterView';
 import {human} from 'react-native-typography';
+import {useSelector} from 'react-redux';
 
 const GalleryItem = ({isEdit}) => {
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
@@ -41,10 +42,14 @@ const GalleryItem = ({isEdit}) => {
 
 const GalleryScreen = () => {
   const [isEdit, setIsEdit] = React.useState(false);
+  const {isAdmin} = useSelector(state => state.authState);
   return (
     <View style={globalStyles.rootView}>
       <AppHeader title="Gallery" />
-      <FilterView showBackBtn={isEdit}  onPressBackBtn={() => setIsEdit(false)}/>
+      <FilterView
+        showBackBtn={isEdit}
+        onPressBackBtn={() => setIsEdit(false)}
+      />
       <View style={galleryScreenStyles.listView}>
         <FlatList
           numColumns={2}
@@ -55,50 +60,51 @@ const GalleryScreen = () => {
           }}
         />
       </View>
-      {isEdit ? (
-        <View style={galleryScreenStyles.actionsView1}>
-          <View
-            style={{
-              flex: 0.5,
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-            }}>
-            <Text style={human.body}>Select images to remove or edit.</Text>
+      {isAdmin &&
+        (isEdit ? (
+          <View style={galleryScreenStyles.actionsView1}>
+            <View
+              style={{
+                flex: 0.5,
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+              }}>
+              <Text style={human.body}>Select images to remove or edit.</Text>
+            </View>
+            <ContainedButton
+              btnText="Remove Images"
+              variant="secondary"
+              btnStyle={{
+                marginBottom: 15,
+              }}
+            />
+            <ContainedButton btnText="Edit Images" variant="secondary" />
           </View>
-          <ContainedButton
-            btnText="Remove Images"
-            variant="secondary"
-            btnStyle={{
-              marginBottom: 15,
-            }}
-          />
-          <ContainedButton btnText="Edit Images" variant="secondary" />
-        </View>
-      ) : (
-        <View style={galleryScreenStyles.actionsView}>
-          <ContainedButton
-            btnText="Remove/Edit Images"
-            variant="secondary"
-            btnStyle={{
-              marginBottom: 10,
-            }}
-            onPress={() => setIsEdit(true)}
-          />
-          <ContainedButton
-            btnText="Add Images"
-            variant="secondary"
-            addIcon={true}
-            btnStyle={{
-              marginBottom: 10,
-            }}
-          />
-          <ContainedButton
-            btnText="Add Details"
-            variant="secondary"
-            addIcon={true}
-          />
-        </View>
-      )}
+        ) : (
+          <View style={galleryScreenStyles.actionsView}>
+            <ContainedButton
+              btnText="Remove/Edit Images"
+              variant="secondary"
+              btnStyle={{
+                marginBottom: 10,
+              }}
+              onPress={() => setIsEdit(true)}
+            />
+            <ContainedButton
+              btnText="Add Images"
+              variant="secondary"
+              addIcon={true}
+              btnStyle={{
+                marginBottom: 10,
+              }}
+            />
+            <ContainedButton
+              btnText="Add Details"
+              variant="secondary"
+              addIcon={true}
+            />
+          </View>
+        ))}
     </View>
   );
 };

@@ -22,7 +22,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const RegisterScreen = ({navigation}) => {
-
+  
   const [imageFile, setImageFile] = useState(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -61,8 +61,8 @@ const RegisterScreen = ({navigation}) => {
           fileUri: response.assets[0].uri,
         });
       }
-    {label: '2017', value: '2017'},
-  ]);
+    });
+  }
 
   const [registerForm, setRegisterForm] = React.useState({
     firstName: '',
@@ -106,10 +106,6 @@ const RegisterScreen = ({navigation}) => {
             flex: 1,
             width: '100%',
           }}>
-          <FormInput labelText="First Name" />
-          <FormInput labelText="Last Name" />
-          <FormInput labelText="Password" />
-          <FormInput labelText="Email Address" />
           <FormInput
             labelText="First Name"
             name="firstName"
@@ -172,11 +168,12 @@ const RegisterScreen = ({navigation}) => {
             width: '100%',
           }}>
           <GradientButton
-            btnText="LOG IN"
+            btnText="REGISTER"
             gradientContainerStyle={{
               borderRadius: 22,
             }}
             onPress={() => {
+              
               navigation.navigate(dashboardScreenRoute);
             }}
           />
