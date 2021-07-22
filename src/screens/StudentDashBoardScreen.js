@@ -1,10 +1,10 @@
 import React from 'react';
 import {FlatList, View, Dimensions} from 'react-native';
-import {dashboardScreenStyles as styles} from 'styles/screens/dashboardScreenStyles';
-import {globalStyles} from 'styles/globalStyles';
-import ContainedButton from 'components/Buttons/ContainedButton';
+import {dashboardScreenStyles as styles} from '../styles/screens/dashboardScreenStyles';
+import {globalStyles} from '../styles/globalStyles';
+import ContainedButton from '../components/Buttons/ContainedButton';
 import {systemWeights, human} from 'react-native-typography';
-import NavigationHeader from 'components/NavigationHeader';
+import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './StudentDashboardRoutes';
 
@@ -20,7 +20,7 @@ const StudentDashboardScreen = ({navigation}) => {
     y: -1,
     style: {marginVertical: 7, borderRadius: 10},
   };
-return (
+  return (
     <View style={globalStyles.screenView}>
       <NavigationHeader
         style={{

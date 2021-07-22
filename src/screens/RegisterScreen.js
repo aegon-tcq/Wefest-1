@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import {
   Image,
   View,
@@ -21,6 +22,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const RegisterScreen = ({navigation}) => {
+
   const [imageFile, setImageFile] = useState(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -59,6 +61,20 @@ const RegisterScreen = ({navigation}) => {
           fileUri: response.assets[0].uri,
         });
       }
+    {label: '2017', value: '2017'},
+  ]);
+
+  const [registerForm, setRegisterForm] = React.useState({
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+  });
+
+  const handleInputChange = (key, value) => {
+    setRegisterForm({
+      ...registerForm,
+      [key]: value,
     });
   };
 
@@ -85,7 +101,6 @@ const RegisterScreen = ({navigation}) => {
             source={{uri: imageFile.fileUri}}
           />
         )}
-
         <View
           style={{
             flex: 1,
@@ -95,7 +110,35 @@ const RegisterScreen = ({navigation}) => {
           <FormInput labelText="Last Name" />
           <FormInput labelText="Password" />
           <FormInput labelText="Email Address" />
-            <DropDownPicker
+          <FormInput
+            labelText="First Name"
+            name="firstName"
+            value={registerForm.firstName}
+            onChangeText={handleInputChange}
+          />
+          <FormInput
+            labelText="Last Name"
+            name="lastName"
+            value={registerForm.lastName}
+            onChangeText={handleInputChange}
+          />
+          <FormInput
+            labelText="Password"
+            name="password"
+            value={registerForm.password}
+            onChangeText={handleInputChange}
+          />
+          <FormInput
+            labelText="Email Address"
+            name="email"
+            value={registerForm.email}
+            onChangeText={handleInputChange}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+            }}>
+             <DropDownPicker
               open={open}
               value={value}
               items={items}
@@ -119,6 +162,8 @@ const RegisterScreen = ({navigation}) => {
               }}
               arrowSize={30}
             />
+          </View>
+
         </View>
 
         <View
@@ -142,6 +187,7 @@ const RegisterScreen = ({navigation}) => {
 };
 
 export default RegisterScreen;
+
 const styles = StyleSheet.create({
   dropDownContainer: {
     borderWidth: 0,
@@ -150,3 +196,4 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
+

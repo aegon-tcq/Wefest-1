@@ -6,7 +6,7 @@ import {systemWeights, human} from 'react-native-typography';
 import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {eventsScreenRoute, directoryScreenRoute} from 'navigation/screenNames';
-import {globalStyles} from 'styles/globalStyles';
+import {globalStyles} from '../styles/globalStyles';
 import { leaderBoardLeaderShipStyles } from '../styles/screens/leaderBoardLeaderShipStyles';
 
 const LeaderBoardCard = ({imageUrl,

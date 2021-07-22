@@ -40,11 +40,11 @@ const GalleryItem = ({isEdit}) => {
 };
 
 const GalleryScreen = () => {
-  const [isEdit, setIsEdit] = React.useState(true);
+  const [isEdit, setIsEdit] = React.useState(false);
   return (
     <View style={globalStyles.rootView}>
       <AppHeader title="Gallery" />
-      <FilterView showBackBtn={isEdit} />
+      <FilterView showBackBtn={isEdit}  onPressBackBtn={() => setIsEdit(false)}/>
       <View style={galleryScreenStyles.listView}>
         <FlatList
           numColumns={2}
@@ -82,6 +82,7 @@ const GalleryScreen = () => {
             btnStyle={{
               marginBottom: 10,
             }}
+            onPress={() => setIsEdit(true)}
           />
           <ContainedButton
             btnText="Add Images"
