@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image, FlatList} from 'react-native';
+import {Text, View, Image, FlatList,Modal} from 'react-native';
 import AppHeader from '../components/AppHeader';
 import ContainedButton from '../components/Buttons/ContainedButton';
 import FilterView from '../components/FilterView';
@@ -9,9 +9,12 @@ import IconButton from '../components/Buttons/IconButton';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
+import AddNewDirectoryMemberModal from './components/AddNewDirectoryMemberModal';
 
 const DirectoryItem = ({item}) => {
+
   const [open, setOpen] = React.useState(false);
+
   const contentLeft = () => (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <Image
@@ -89,6 +92,13 @@ const DirectoryItem = ({item}) => {
 };
 
 const DirectoryScreen = () => {
+
+  const [directoryModalVisiblity, setDirectoryModalVisiblity] = React.useState(false);
+
+  const changeAddDirectoryModalVisiblity = () => {
+    setDirectoryModalVisiblity(!directoryModalVisiblity);
+  }
+
   const renderSeparator = () => (
     <View
       style={{
@@ -120,6 +130,7 @@ const DirectoryScreen = () => {
           paddingHorizontal: 30,
         }}>
         <ContainedButton
+        onPress={changeAddDirectoryModalVisiblity}
           btnText="Add New Member"
           addIcon={true}
           variant="secondary"
@@ -130,6 +141,17 @@ const DirectoryScreen = () => {
           }}
         />
       </View>
+      <Modal
+        animationType="slide"
+        visible={directoryModalVisiblity}
+        onRequestClose={() => {
+          changeAddDirectoryModalVisiblity()
+        }}
+      >
+        <AddNewDirectoryMemberModal 
+        onModalClose={changeAddDirectoryModalVisiblity}
+      />
+      </Modal>
     </View>
   );
 };

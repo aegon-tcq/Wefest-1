@@ -3,24 +3,24 @@ import {
   Image,
   View,
   KeyboardAvoidingView,
-  StyleSheet,
+  ScrollView,
   TouchableOpacity,
   Dimensions
 } from 'react-native';
-import FormInput from '../components/FormComponents/FormInput';
-import {globalStyles} from '../styles/globalStyles';
-import GradientButton from '../components/Buttons/GradientButton';
-import NavigationHeader from '../components/NavigationHeader';
-import {dashboardScreenRoute} from '../navigation/screenNames';
+import FormInput from '../../components/FormComponents/FormInput';
+import {globalStyles} from '../../styles/globalStyles';
 import Feather from 'react-native-vector-icons/Feather';
-import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'react-native-image-picker';
-
+import ContainedButton from '../../components/Buttons/ContainedButton';
+import {systemWeights, human} from 'react-native-typography';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const RegisterScreen = ({navigation}) => {
+export default AddNewDirectoryMemberModal = ({
+    onModalClose = ()=>console.log("modal close Btn")
+}) => {
+
   const [imageFile, setImageFile] = useState(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -63,9 +63,14 @@ const RegisterScreen = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingView style={{flex: 1}}>
-      <NavigationHeader navigation={navigation} />
-      <View style={[globalStyles.screenView, {alignItems: 'center'}]}>
+    <KeyboardAvoidingView style={{flex: 1,padding:20}}>
+    <ScrollView style={{flex:1}} contentContainerStyle={{flexGrow:1}} >
+    <TouchableOpacity
+        onPress={onModalClose}
+    >
+    <Feather name="x" size={30} />
+    </TouchableOpacity>
+      <View style={[globalStyles.screenView, {alignItems: 'center',justifyContent:"space-around"}]}>
         {imageFile === null ? (
           <TouchableOpacity
             onPress={chooseImage}
@@ -91,62 +96,33 @@ const RegisterScreen = ({navigation}) => {
             flex: 1,
             width: '100%',
           }}>
-          <FormInput labelText="First Name" />
-          <FormInput labelText="Last Name" />
-          <FormInput labelText="Password" />
-          <FormInput labelText="Email Address" />
-            <DropDownPicker
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              placeholder={'Batch Number'}
-              style={{
-                height: 35,
-                width:windowWidth*0.4,
-                alignSelf: 'center',
-                backgroundColor: '#464d55',
-              }}
-              textStyle={{
-                color: '#FFF',
-              }}
-              dropDownContainerStyle={{
-                backgroundColor: '#464d55',
-                width:windowWidth*0.4,
-               alignSelf:"center"
-              }}
-              arrowSize={30}
-            />
+          <FormInput labelText="UserName" />
+          <FormInput labelText="UserRole" />
+          <FormInput labelText="Email " />
+          <FormInput labelText="Phone no." />
         </View>
 
-        <View
-          style={{
-            bottom: 0,
-            width: '100%',
-          }}>
-          <GradientButton
-            btnText="LOG IN"
-            gradientContainerStyle={{
-              borderRadius: 22,
-            }}
-            onPress={() => {
-              navigation.navigate(dashboardScreenRoute);
-            }}
-          />
+        <View>
+        <ContainedButton
+          btnText="Submit"
+          onPress={() => {}}
+          isUpperCase={true}
+          variant="secondary"
+          btnStyle={{
+            elevation: 6,
+            height: 40,
+            paddingHorizontal: 10,
+          }}
+          textStyle={{
+            ...human.body,
+            color: 'white',
+          }}
+        />
         </View>
       </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
 
-export default RegisterScreen;
-const styles = StyleSheet.create({
-  dropDownContainer: {
-    borderWidth: 0,
-    width: 400,
-    alignSelf: 'center',
-    marginTop: 8,
-  },
-});
+
