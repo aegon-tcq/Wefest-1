@@ -19,6 +19,7 @@ import ReachUs1Screen from '../screens/ReachUs1Screen';
 import ReachUs2Screen from '../screens/ReachUs2Screen';
 import AttendenceScreen from '../screens/AttendenceScreen';
 import MyEventsScreen from './../screens/MyEventsScreen';
+
 import {
   welcomeScreenRoute,
   loginScreenRoute,
@@ -55,10 +56,8 @@ const UserStackScreen = () => {
         component={AnnouncementsScreen}
         name={announcementScreenRoute}
       />
-      <UserStack.Screen
-        component={AttendenceScreen}
-        name={AttendanceScreenRoute}
-      />
+      <UserStack.Screen component={EventsScreen} name={eventsScreenRoute} />
+      <UserStack.Screen component={AttendenceScreen} name={AttendanceScreenRoute} />
       <UserStack.Screen component={ReachUs2Screen} name={ReachUs2ScreenRoute} />
       <UserStack.Screen component={ReachUs1Screen} name={ReachUs1ScreenRoute} />
       <UserStack.Screen component={GalleryScreen} name={galleryScreenRoute} />

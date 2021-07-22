@@ -8,6 +8,7 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './dashboardRoutes';
 
+
 const DashboardScreen = ({navigation}) => {
   const shadowOpt = {
     height: 50,

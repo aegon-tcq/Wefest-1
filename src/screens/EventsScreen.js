@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, Modal} from 'react-native';
 import AppHeader from '../components/AppHeader';
 import {globalStyles} from '../styles/globalStyles';
 import FilterView from '../components/FilterView';
@@ -7,7 +7,17 @@ import ContainedButton from '../components/Buttons/ContainedButton';
 import EventCard from '../components/EventCard';
 import {cardColors} from '../styles/components/eventCardStyles';
 import {eventEditRoute} from '../navigation/screenNames';
+import AddEventModal from './components/AddEventModal';
+
+
 const EventsScreen = ({navigation}) => {
+
+  const [addEventModalVisible, setAddEventModalVisible] = React.useState(false);
+
+  const changeAddEventModalVisiblity = () => {
+    setAddEventModalVisible(!addEventModalVisible);
+  }
+
   return (
     <View style={{flex: 1}}>
       <AppHeader title="Events" />
@@ -41,6 +51,7 @@ const EventsScreen = ({navigation}) => {
           paddingVertical: 15,
         }}>
         <ContainedButton
+        onPress={changeAddEventModalVisiblity}
           btnText="Add New Event"
           isUpperCase={true}
           variant="secondary"
@@ -50,6 +61,18 @@ const EventsScreen = ({navigation}) => {
           addIcon={true}
         />
       </View>
+      <Modal
+        animationType="slide"
+        visible={addEventModalVisible}
+        onRequestClose={() => {
+          changeAddEventModalVisiblity()
+        }}
+      >
+        <AddEventModal 
+        onModalClose={changeAddEventModalVisiblity}
+      />
+      </Modal>
+      
     </View>
   );
 };
