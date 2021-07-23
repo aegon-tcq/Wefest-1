@@ -6,8 +6,10 @@ import {systemWeights, human} from 'react-native-typography';
 import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {eventsScreenRoute, directoryScreenRoute} from 'navigation/screenNames';
-import {globalStyles} from 'styles/globalStyles';
+import {globalStyles} from '../styles/globalStyles';
 import { leaderBoardLeaderShipStyles } from '../styles/screens/leaderBoardLeaderShipStyles';
+import AppHeaderWithImage from '../components/AppHeaderWithImage';
+
 
 const LeaderBoardCard = ({imageUrl,
     userName,
@@ -33,7 +35,7 @@ const LeaderBoardCard = ({imageUrl,
                 height:30,
                 width:30,
             }}
-                source={require("../assets/badge.jpg")}
+                source={require("../assets/badge.jpeg")}
             />
         </View>
     </View>
@@ -53,37 +55,17 @@ function LeaderBoardLeaderShipScreen({navigation}) {
       };
     return (
         <View style={globalStyles.rootView} >
-            <AppHeader 
-                title={"leaderBoard"}
+            <AppHeaderWithImage 
+                title={"Leaderboard Chart"}
             />
-    <NavigationHeader
-            style={{
-              paddingTop: 0,
-              marginTop: 5,
-            }}
-            navigation={navigation}
-          />
           <View style={{
               flex:1,
-              alignItems:"center"
+              marginTop:20
           }} >
-          <BoxShadow setting={shadowOpt}>
-                    <ContainedButton
-                      btnText={"LeaderShip Board"}
-                      onPress={() => {}}
-                      isUpperCase={true}
-                      btnStyle={{
-                        elevation: 6,
-                      }}
-                      textStyle={{
-                        ...systemWeights.regular,
-                        color: 'black',
-                      }}
-                    />
-                  </BoxShadow>
                   <FlatList 
                     data={[0,1,2,3,4,5,6,7,8]}
                     style={{flex:1}}
+                    
                     showsVerticalScrollIndicator={false}
                     keyExtractor={item => item}
                     renderItem={()=>(<LeaderBoardCard
