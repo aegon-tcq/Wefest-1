@@ -7,7 +7,7 @@ import {systemWeights, human} from 'react-native-typography';
 import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './dashboardRoutes';
-
+import {contactusScreenRoute} from '../navigation/screenNames';
 
 const DashboardScreen = ({navigation}) => {
   const shadowOpt = {
@@ -76,7 +76,9 @@ const DashboardScreen = ({navigation}) => {
         />
         <ContainedButton
           btnText="Contact Us"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate(contactusScreenRoute);
+          }}
           isUpperCase={true}
           variant="secondary"
           btnStyle={{

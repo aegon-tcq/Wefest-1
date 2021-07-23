@@ -6,8 +6,6 @@ import StudentDashboardScreen from '../screens/StudentDashBoardScreen';
 import EventsScreen from '../screens/EventsScreen';
 import EditEventScreen from '../screens/EditEventScreen';
 import DirectoryScreen from '../screens/DirectoryScreen';
-import {directoryScreenRoute} from './screenNames';
-import {LeaderBoardHomeScreenRoute, RegisterScreenRoute} from './screenNames';
 import LeaderBoardHomeScreen from '../screens/LeaderBoardHomeScreen';
 import LeaderBoardHowToEarnScreen from '../screens/LeaderBoardHowToEarnScreen';
 import LeaderBoardLeaderShipScreen from '../screens/LeaderBoardLeaderShipScreen';
@@ -19,7 +17,9 @@ import ReachUs1Screen from '../screens/ReachUs1Screen';
 import ReachUs2Screen from '../screens/ReachUs2Screen';
 import AttendenceScreen from '../screens/AttendenceScreen';
 import MyEventsScreen from './../screens/MyEventsScreen';
-
+import LeaderpointsScreen from './../screens/LeaderpointsScreen';
+import HomeScreen from './../screens/HomeScreen';
+import ContactUsScreen from './../screens/ContactUsScreen';
 import {
   welcomeScreenRoute,
   loginScreenRoute,
@@ -35,6 +35,12 @@ import {
   LeaderBoardHowToEarnScreenRoute,
   LeaderBoardLeaderShipScreenRoute,
   myEventsScreenRoute,
+  leaderpointsRoute,
+  directoryScreenRoute,
+  LeaderBoardHomeScreenRoute,
+  RegisterScreenRoute,
+  homeScreenRoute,
+  contactusScreenRoute,
 } from './screenNames';
 
 const UserStack = createStackNavigator();
@@ -83,6 +89,15 @@ const UserStackScreen = () => {
         name={directoryScreenRoute}
       />
       <UserStack.Screen component={MyEventsScreen} name={myEventsScreenRoute} />
+      <UserStack.Screen
+        component={LeaderpointsScreen}
+        name={leaderpointsRoute}
+      />
+      <UserStack.Screen component={HomeScreen} name={homeScreenRoute} />
+      <UserStack.Screen
+        component={ContactUsScreen}
+        name={contactusScreenRoute}
+      />
     </UserStack.Navigator>
   );
 };

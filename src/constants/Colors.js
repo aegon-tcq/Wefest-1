@@ -1,5 +1,7 @@
 export default {
   defaultColor: '#fff',
+  greyLight: '#EDEDED',
+  greyShade: '#D3D3D3',
   primary: '#dd675d',
   primaryLight: '#E9948D',
   secondary: '#454c54',
@@ -20,4 +22,6 @@ export default {
   darkViolet: '#9137BC',
   violetShade0: '#D88FFF',
   violetShade1: '#D49FDA',
+  orange: '#F98E07',
+  blue: '#0290B3',
 };

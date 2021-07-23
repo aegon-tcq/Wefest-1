@@ -3,11 +3,18 @@ import {StatusBar, Text, View} from 'react-native';
 import {appHeaderStyles} from '../styles/components/appHeaderStyles';
 import Colors from '../constants/Colors';
 
-const AppHeader = ({title = 'App Header',backgroundColor = "#454c54", textColor = "#FFF"}) => {
+const AppHeader = ({
+  title = 'App Header',
+  backgroundColor = Colors.secondary,
+  textColor = '#FFF',
+}) => {
   return (
-    <View style={[appHeaderStyles.container,{backgroundColor:backgroundColor}]}>
+    <View
+      style={[appHeaderStyles.container, {backgroundColor: backgroundColor}]}>
       <StatusBar backgroundColor={Colors.secondary} />
-      <Text style={[appHeaderStyles.headerText,{color:textColor}]}>{title.toUpperCase()}</Text>
+      <Text style={[appHeaderStyles.headerText, {color: textColor}]}>
+        {title.toUpperCase()}
+      </Text>
     </View>
   );
 };
