@@ -9,6 +9,7 @@ import {cardColors} from '../styles/components/eventCardStyles';
 import {eventEditRoute} from '../navigation/screenNames';
 import AddEventModal from './components/AddEventModal';
 import {useSelector} from 'react-redux';
+import PageLayout from '../containers/PageLayout';
 
 const EventsScreen = ({navigation}) => {
   const [addEventModalVisible, setAddEventModalVisible] = React.useState(false);
@@ -18,61 +19,63 @@ const EventsScreen = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1}}>
-      <AppHeader title="Events" />
-      <FilterView title="Earlier Events" />
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: 10,
-        }}>
-        <FlatList
-          data={[0, 1, 2, 3, 4, 5]}
-          keyExtractor={item => item}
-          numColumns={2}
-          renderItem={({item, index}) => {
-            return (
-              <EventCard
-                showEdit={isAdmin}
-                onPressEdit={() => {
-                  navigation.navigate(eventEditRoute);
-                }}
-                titleColor={cardColors[index % 4].titleColor}
-                cardColor={cardColors[index % 4].cardBg}
-                decorationColors={cardColors[index % 4].gradient}
-              />
-            );
-          }}
-        />
-      </View>
-      {isAdmin && (
+    <PageLayout>
+      <View style={{flex: 1}}>
+        <AppHeader title="Events" />
+        <FilterView title="Earlier Events" />
         <View
           style={{
-            paddingHorizontal: 35,
-            paddingVertical: 15,
+            flex: 1,
+            paddingHorizontal: 10,
           }}>
-          <ContainedButton
-            onPress={changeAddEventModalVisiblity}
-            btnText="Add New Event"
-            isUpperCase={true}
-            variant="secondary"
-            btnStyle={{
-              ...globalStyles.rowCenter,
+          <FlatList
+            data={[0, 1, 2, 3, 4, 5]}
+            keyExtractor={item => item}
+            numColumns={2}
+            renderItem={({item, index}) => {
+              return (
+                <EventCard
+                  showEdit={isAdmin}
+                  onPressEdit={() => {
+                    navigation.navigate(eventEditRoute);
+                  }}
+                  titleColor={cardColors[index % 4].titleColor}
+                  cardColor={cardColors[index % 4].cardBg}
+                  decorationColors={cardColors[index % 4].gradient}
+                />
+              );
             }}
-            addIcon={true}
           />
         </View>
-      )}
+        {isAdmin && (
+          <View
+            style={{
+              paddingHorizontal: 35,
+              paddingVertical: 15,
+            }}>
+            <ContainedButton
+              onPress={changeAddEventModalVisiblity}
+              btnText="Add New Event"
+              isUpperCase={true}
+              variant="secondary"
+              btnStyle={{
+                ...globalStyles.rowCenter,
+              }}
+              addIcon={true}
+            />
+          </View>
+        )}
 
-      <Modal
-        animationType="slide"
-        visible={addEventModalVisible}
-        onRequestClose={() => {
-          changeAddEventModalVisiblity();
-        }}>
-        <AddEventModal onModalClose={changeAddEventModalVisiblity} />
-      </Modal>
-    </View>
+        <Modal
+          animationType="slide"
+          visible={addEventModalVisible}
+          onRequestClose={() => {
+            changeAddEventModalVisiblity();
+          }}>
+          <AddEventModal onModalClose={changeAddEventModalVisiblity} />
+        </Modal>
+      </View>
+    </PageLayout>
   );
 };
 

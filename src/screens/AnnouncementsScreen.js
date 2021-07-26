@@ -9,6 +9,7 @@ import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 import AddAnnouncementModal from './components/AddAnnouncementModal';
 import {useSelector} from 'react-redux';
+import PageLayout from './../containers/PageLayout';
 
 const announcementColors = [Colors.primary, Colors.brown, Colors.pinkShade1];
 
@@ -76,53 +77,55 @@ const AnnouncementsScreen = () => {
 
   const {isAdmin} = useSelector(state => state.authState);
   return (
-    <View style={globalStyles.rootView}>
-      <AppHeader title="Announcements" />
-      <FilterView />
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: 15,
-        }}>
-        <FlatList
-          keyExtractor={item => item}
-          data={[0, 1, 2, 3, 4]}
-          renderItem={({item, index}) => {
-            return (
-              <AnnouncementItem key={item} index={index} isAdmin={isAdmin} />
-            );
-          }}
-        />
-      </View>
-      {isAdmin && (
+    <PageLayout>
+      <View style={globalStyles.rootView}>
+        <AppHeader title="Announcements" />
+        <FilterView />
         <View
           style={{
-            paddingVertical: 30,
-            paddingHorizontal: 30,
+            flex: 1,
+            paddingHorizontal: 15,
           }}>
-          <ContainedButton
-            btnText="Add New Announcement"
-            addIcon={true}
-            variant="secondary"
-            btnStyle={{
-              ...globalStyles.rowCenter,
-              height: 55,
-              borderRadius: 15,
+          <FlatList
+            keyExtractor={item => item}
+            data={[0, 1, 2, 3, 4]}
+            renderItem={({item, index}) => {
+              return (
+                <AnnouncementItem key={item} index={index} isAdmin={isAdmin} />
+              );
             }}
-            onPress={toggleAnnouncementModal}
           />
         </View>
-      )}
+        {isAdmin && (
+          <View
+            style={{
+              paddingVertical: 30,
+              paddingHorizontal: 30,
+            }}>
+            <ContainedButton
+              btnText="Add New Announcement"
+              addIcon={true}
+              variant="secondary"
+              btnStyle={{
+                ...globalStyles.rowCenter,
+                height: 55,
+                borderRadius: 15,
+              }}
+              onPress={toggleAnnouncementModal}
+            />
+          </View>
+        )}
 
-      <Modal
-        animationType="slide"
-        visible={addAnnouncementModal}
-        onRequestClose={() => {
-          toggleAnnouncementModal();
-        }}>
-        <AddAnnouncementModal onModalClose={toggleAnnouncementModal} />
-      </Modal>
-    </View>
+        <Modal
+          animationType="slide"
+          visible={addAnnouncementModal}
+          onRequestClose={() => {
+            toggleAnnouncementModal();
+          }}>
+          <AddAnnouncementModal onModalClose={toggleAnnouncementModal} />
+        </Modal>
+      </View>
+    </PageLayout>
   );
 };
 

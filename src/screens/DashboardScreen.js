@@ -9,7 +9,7 @@ import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './dashboardRoutes';
 import {contactusScreenRoute} from '../navigation/screenNames';
 
-const DashboardScreen = ({navigation}) => {
+const DashboardScreen = ({navigation, isDrawer = false, handleClose}) => {
   const shadowOpt = {
     height: 50,
     width: Dimensions.get('screen').width - 50,
@@ -29,6 +29,8 @@ const DashboardScreen = ({navigation}) => {
           marginTop: -5,
         }}
         navigation={navigation}
+        isDrawer={isDrawer}
+        handleClose={handleClose}
       />
       <View style={styles.container}>
         <FlatList
@@ -42,6 +44,7 @@ const DashboardScreen = ({navigation}) => {
                   onPress={() => {
                     if (item.routeName) {
                       navigation.navigate(item.routeName);
+                      isDrawer && handleClose();
                     }
                   }}
                   isUpperCase={true}

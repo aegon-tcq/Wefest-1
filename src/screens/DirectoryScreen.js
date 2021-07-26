@@ -11,6 +11,7 @@ import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 import AddNewDirectoryMemberModal from './components/AddNewDirectoryMemberModal';
 import {useSelector} from 'react-redux';
+import PageLayout from '../containers/PageLayout';
 
 const DirectoryItem = ({item, isAdmin}) => {
   const [open, setOpen] = React.useState(false);
@@ -110,54 +111,56 @@ const DirectoryScreen = () => {
     />
   );
   return (
-    <View style={globalStyles.rootView}>
-      <AppHeader title="Directory" />
-      <FilterView />
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: 15,
-        }}>
-        <FlatList
-          keyExtractor={item => item}
-          data={[0, 1, 2, 3, 4]}
-          ItemSeparatorComponent={renderSeparator}
-          renderItem={({item}) => {
-            return <DirectoryItem key={item} isAdmin={isAdmin} />;
-          }}
-        />
-      </View>
-      {isAdmin && (
+    <PageLayout>
+      <View style={globalStyles.rootView}>
+        <AppHeader title="Directory" />
+        <FilterView />
         <View
           style={{
-            paddingVertical: 30,
-            paddingHorizontal: 30,
+            flex: 1,
+            paddingHorizontal: 15,
           }}>
-          <ContainedButton
-            onPress={changeAddDirectoryModalVisiblity}
-            btnText="Add New Member"
-            addIcon={true}
-            variant="secondary"
-            btnStyle={{
-              ...globalStyles.rowCenter,
-              height: 55,
-              borderRadius: 15,
+          <FlatList
+            keyExtractor={item => item}
+            data={[0, 1, 2, 3, 4]}
+            ItemSeparatorComponent={renderSeparator}
+            renderItem={({item}) => {
+              return <DirectoryItem key={item} isAdmin={isAdmin} />;
             }}
           />
         </View>
-      )}
+        {isAdmin && (
+          <View
+            style={{
+              paddingVertical: 30,
+              paddingHorizontal: 30,
+            }}>
+            <ContainedButton
+              onPress={changeAddDirectoryModalVisiblity}
+              btnText="Add New Member"
+              addIcon={true}
+              variant="secondary"
+              btnStyle={{
+                ...globalStyles.rowCenter,
+                height: 55,
+                borderRadius: 15,
+              }}
+            />
+          </View>
+        )}
 
-      <Modal
-        animationType="slide"
-        visible={directoryModalVisiblity}
-        onRequestClose={() => {
-          changeAddDirectoryModalVisiblity();
-        }}>
-        <AddNewDirectoryMemberModal
-          onModalClose={changeAddDirectoryModalVisiblity}
-        />
-      </Modal>
-    </View>
+        <Modal
+          animationType="slide"
+          visible={directoryModalVisiblity}
+          onRequestClose={() => {
+            changeAddDirectoryModalVisiblity();
+          }}>
+          <AddNewDirectoryMemberModal
+            onModalClose={changeAddDirectoryModalVisiblity}
+          />
+        </Modal>
+      </View>
+    </PageLayout>
   );
 };
 

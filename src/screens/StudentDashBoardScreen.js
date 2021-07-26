@@ -8,7 +8,11 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './StudentDashboardRoutes';
 
-const StudentDashboardScreen = ({navigation}) => {
+const StudentDashboardScreen = ({
+  navigation,
+  isDrawer = false,
+  handleClose,
+}) => {
   const shadowOpt = {
     height: 50,
     width: Dimensions.get('screen').width - 50,
@@ -28,6 +32,8 @@ const StudentDashboardScreen = ({navigation}) => {
           marginTop: -5,
         }}
         navigation={navigation}
+        isDrawer={isDrawer}
+        handleClose={handleClose}
       />
       <View style={styles.container}>
         <FlatList
@@ -41,6 +47,7 @@ const StudentDashboardScreen = ({navigation}) => {
                   onPress={() => {
                     if (item.routeName) {
                       navigation.push(item.routeName);
+                      isDrawer && handleClose();
                     }
                   }}
                   isUpperCase={true}
