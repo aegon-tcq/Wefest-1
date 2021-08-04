@@ -14,10 +14,12 @@ const ExpandedCard = ({
   cardContent,
   onPress,
   onEditPress,
+  disabled = false,
 }) => {
   return (
     <View style={[expandedCardStyles.rootContainer, containerStyle]}>
       <TouchableOpacity
+        disabled={disabled}
         onPress={onPress}
         style={[
           expandedCardStyles.card,

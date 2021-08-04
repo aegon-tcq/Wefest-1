@@ -6,12 +6,13 @@ import {
   LeaderBoardHomeScreenRoute,
   LeaderBoardHowToEarnScreenRoute,
   LeaderBoardLeaderShipScreenRoute,
+  homeScreenRoute,
 } from '../navigation/screenNames';
 
 export const dashboardRoutes = [
   {
     screenName: 'Home Page',
-    routeName: '',
+    routeName: homeScreenRoute,
   },
   {
     screenName: 'Become A Member',

@@ -1,8 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
 import IconButton from '../components/Buttons/IconButton';
 
-const NavigationHeader = ({navigation, style = {}}) => {
+const NavigationHeader = ({
+  navigation,
+  style = {},
+  isDrawer = false,
+  handleClose,
+}) => {
   return (
     <View
       style={[
@@ -16,7 +21,11 @@ const NavigationHeader = ({navigation, style = {}}) => {
       ]}>
       <IconButton
         onPress={() => {
-          navigation.pop();
+          if (isDrawer) {
+            handleClose();
+          } else {
+            navigation.pop();
+          }
         }}
       />
     </View>

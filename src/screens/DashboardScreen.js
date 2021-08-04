@@ -8,8 +8,9 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './dashboardRoutes';
 import Icon from 'react-native-vector-icons/Entypo';
-
 const DashboardScreen = ({navigation}) => {
+import {contactusScreenRoute} from '../navigation/screenNames';
+const DashboardScreen = ({navigation, isDrawer = false, handleClose}) => {
   const shadowOpt = {
     height: 50,
     width: Dimensions.get('screen').width - 50,
@@ -36,6 +37,8 @@ const DashboardScreen = ({navigation}) => {
           marginTop: -5,
         }}
         navigation={navigation}
+        isDrawer={isDrawer}
+        handleClose={handleClose}
       />
       <View style={styles.container}>
         <FlatList
@@ -58,6 +61,13 @@ const DashboardScreen = ({navigation}) => {
                           size={20}
                         />
                       ) : null
+              <BoxShadow setting={shadowOpt}>
+                <ContainedButton
+                  btnText={item.screenName}
+                  onPress={() => {
+                    if (item.routeName) {
+                      navigation.navigate(item.routeName);
+                      isDrawer && handleClose();
                     }
                     btnText={item.screenName}
                     onPress={() => {
@@ -121,7 +131,9 @@ const DashboardScreen = ({navigation}) => {
         />
         <ContainedButton
           btnText="Contact Us"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate(contactusScreenRoute);
+          }}
           isUpperCase={true}
           variant="secondary"
           btnStyle={{

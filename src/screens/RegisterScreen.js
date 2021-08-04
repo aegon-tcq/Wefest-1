@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
+
 import {
   Image,
   View,
   KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import FormInput from '../components/FormComponents/FormInput';
 import {globalStyles} from '../styles/globalStyles';
 import GradientButton from '../components/Buttons/GradientButton';
 import NavigationHeader from '../components/NavigationHeader';
-import {dashboardScreenRoute} from '../navigation/screenNames';
+import {dashboardScreenRoute, homeScreenRoute} from '../navigation/screenNames';
 import Feather from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'react-native-image-picker';
 
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const RegisterScreen = ({navigation}) => {
   const [imageFile, setImageFile] = useState(null);
@@ -62,6 +62,20 @@ const RegisterScreen = ({navigation}) => {
     });
   };
 
+  const [registerForm, setRegisterForm] = React.useState({
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+  });
+
+  const handleInputChange = (key, value) => {
+    setRegisterForm({
+      ...registerForm,
+      [key]: value,
+    });
+  };
+
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <NavigationHeader navigation={navigation} />
@@ -85,16 +99,39 @@ const RegisterScreen = ({navigation}) => {
             source={{uri: imageFile.fileUri}}
           />
         )}
-
         <View
           style={{
             flex: 1,
             width: '100%',
           }}>
-          <FormInput labelText="First Name" />
-          <FormInput labelText="Last Name" />
-          <FormInput labelText="Password" />
-          <FormInput labelText="Email Address" />
+          <FormInput
+            labelText="First Name"
+            name="firstName"
+            value={registerForm.firstName}
+            onChangeText={handleInputChange}
+          />
+          <FormInput
+            labelText="Last Name"
+            name="lastName"
+            value={registerForm.lastName}
+            onChangeText={handleInputChange}
+          />
+          <FormInput
+            labelText="Password"
+            name="password"
+            value={registerForm.password}
+            onChangeText={handleInputChange}
+          />
+          <FormInput
+            labelText="Email Address"
+            name="email"
+            value={registerForm.email}
+            onChangeText={handleInputChange}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+            }}>
             <DropDownPicker
               open={open}
               value={value}
@@ -105,7 +142,7 @@ const RegisterScreen = ({navigation}) => {
               placeholder={'Batch Number'}
               style={{
                 height: 35,
-                width:windowWidth*0.4,
+                width: windowWidth * 0.4,
                 alignSelf: 'center',
                 backgroundColor: '#464d55',
               }}
@@ -114,11 +151,12 @@ const RegisterScreen = ({navigation}) => {
               }}
               dropDownContainerStyle={{
                 backgroundColor: '#464d55',
-                width:windowWidth*0.4,
-               alignSelf:"center"
+                width: windowWidth * 0.4,
+                alignSelf: 'center',
               }}
               arrowSize={30}
             />
+          </View>
         </View>
 
         <View
@@ -127,12 +165,12 @@ const RegisterScreen = ({navigation}) => {
             width: '100%',
           }}>
           <GradientButton
-            btnText="LOG IN"
+            btnText="REGISTER"
             gradientContainerStyle={{
               borderRadius: 22,
             }}
             onPress={() => {
-              navigation.navigate(dashboardScreenRoute);
+              navigation.navigate(homeScreenRoute);
             }}
           />
         </View>
@@ -142,6 +180,7 @@ const RegisterScreen = ({navigation}) => {
 };
 
 export default RegisterScreen;
+
 const styles = StyleSheet.create({
   dropDownContainer: {
     borderWidth: 0,

@@ -6,9 +6,23 @@ import GradientButton from '../components/Buttons/GradientButton';
 import {human} from 'react-native-typography';
 import TextButton from '../components/Buttons/TextButton';
 import NavigationHeader from '../components/NavigationHeader';
-import {dashboardScreenRoute} from '../navigation/screenNames';
+import {homeScreenRoute} from '../navigation/screenNames';
+import {useDispatch} from 'react-redux';
+import {setAuthState} from './../redux/actions/authActions';
 
 const LoginScreen = ({navigation}) => {
+  const dispatch = useDispatch();
+  const [loginForm, setLoginForm] = React.useState({
+    username: '',
+    password: '',
+  });
+
+  const handleInputChange = (key, value) => {
+    setLoginForm({
+      ...loginForm,
+      [key]: value,
+    });
+  };
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <NavigationHeader navigation={navigation} />
@@ -25,8 +39,18 @@ const LoginScreen = ({navigation}) => {
             flex: 2,
             padding: 20,
           }}>
-          <FormInput labelText="Enter Username" />
-          <FormInput labelText="Enter Password" />
+          <FormInput
+            labelText="Enter Username"
+            onChangeText={handleInputChange}
+            name="username"
+            value={loginForm.username}
+          />
+          <FormInput
+            labelText="Enter Password"
+            onChangeText={handleInputChange}
+            name="password"
+            value={loginForm.password}
+          />
           <TextButton
             btnText="Forgot Password?"
             btnStyle={{
@@ -48,7 +72,12 @@ const LoginScreen = ({navigation}) => {
               borderRadius: 22,
             }}
             onPress={() => {
-              navigation.navigate(dashboardScreenRoute);
+              dispatch(
+                setAuthState({
+                  isAdmin: true,
+                }),
+              );
+              navigation.navigate(homeScreenRoute);
             }}
           />
         </View>

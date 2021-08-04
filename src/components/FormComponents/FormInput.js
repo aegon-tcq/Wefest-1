@@ -3,10 +3,11 @@ import {Text, TextInput, View} from 'react-native';
 import {inputFormStyles} from '../../styles/components/formStyles';
 
 const FormInput = ({
+  name,
   labelText = 'Input Label',
   placeHolder = 'Enter the placeholder',
   value = '',
-  onChangeText = text => {},
+  onChangeText,
   inputContainerStyle = {},
   inputStyle = {},
   labelStyle = {},
@@ -14,13 +15,23 @@ const FormInput = ({
   return (
     <View style={[inputFormStyles.inputContainer, inputContainerStyle]}>
       <Text style={[inputFormStyles.inputLabel, labelStyle]}>{labelText}</Text>
-      <TextInput
-        placeholder={placeHolder}
-        placeholderTextColor="grey"
-        value={value}
-        onChangeText={onChangeText}
-        style={[inputFormStyles.inputStyle, inputStyle]}
-      />
+      {value ? (
+        <TextInput
+          placeholder={placeHolder}
+          placeholderTextColor="grey"
+          value={value}
+          onChangeText={text => onChangeText(name, text)}
+          style={[inputFormStyles.inputStyle, inputStyle]}
+          secureTextEntry={name === 'password'}
+        />
+      ) : (
+        <TextInput
+          placeholder={placeHolder}
+          placeholderTextColor="grey"
+          style={[inputFormStyles.inputStyle, inputStyle]}
+          secureTextEntry={name === 'password'}
+        />
+      )}
     </View>
   );
 };

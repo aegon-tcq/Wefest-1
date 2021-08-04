@@ -29,6 +29,7 @@ const FilterView = ({
       )}
       {showBackBtn && (
         <IconButton
+          onPress={onPressBackBtn}
           icon={
             <MaterialIcon
               name="chevron-left"

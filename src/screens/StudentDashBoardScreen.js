@@ -9,7 +9,11 @@ import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './StudentDashboardRoutes';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const StudentDashboardScreen = ({navigation}) => {
+const StudentDashboardScreen = ({
+  navigation,
+  isDrawer = false,
+  handleClose,
+}) => {
   const shadowOpt = {
     height: 50,
     width: Dimensions.get('screen').width - 50,
@@ -29,6 +33,7 @@ const StudentDashboardScreen = ({navigation}) => {
     else setDropDownVisible(null);
   };
 
+
   return (
     <View style={globalStyles.screenView}>
       <NavigationHeader
@@ -37,6 +42,8 @@ const StudentDashboardScreen = ({navigation}) => {
           marginTop: -5,
         }}
         navigation={navigation}
+        isDrawer={isDrawer}
+        handleClose={handleClose}
       />
       <View style={styles.container}>
         <FlatList
@@ -59,6 +66,13 @@ const StudentDashboardScreen = ({navigation}) => {
                           size={20}
                         />
                       ) : null
+              <BoxShadow setting={shadowOpt}>
+                <ContainedButton
+                  btnText={item.screenName}
+                  onPress={() => {
+                    if (item.routeName) {
+                      navigation.push(item.routeName);
+                      isDrawer && handleClose();
                     }
                     btnText={item.screenName}
                     onPress={() => {

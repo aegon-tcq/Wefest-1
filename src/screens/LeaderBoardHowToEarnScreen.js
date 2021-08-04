@@ -14,13 +14,14 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {eventsScreenRoute, directoryScreenRoute} from 'navigation/screenNames';
 import {globalStyles} from '../styles/globalStyles';
+import HowToEarn1 from '../assets/hte1.png';
+import HowToEarn2 from '../assets/hte2.png';
+import HowToEarn3 from '../assets/hte3.png';
+import HowToEarnBg from '../assets/htebg.png';
 
-const HowToEarnText = ({text = 'text here', imageName = 'https://image.flaticon.com/icons/png/128/1170/1170609.png' }) => (
+const HowToEarnText = ({text = 'text here', imageName}) => (
   <View style={{flexDirection: 'row', alignItems: 'center', margin: 20}}>
-    <Image
-      style={{height: 50, width: 50}}
-      source={{uri:imageName}}
-    />
+    <Image style={{height: 50, width: 50}} source={imageName} />
     <Text
       style={{width: '80%', color: '#464d55', fontSize: 18, marginLeft: 20}}>
       {text}
@@ -29,6 +30,7 @@ const HowToEarnText = ({text = 'text here', imageName = 'https://image.flaticon.
 );
 
 function LeaderBoardHowToEarnScreen({navigation}) {
+
   const shadowOpt = {
     height: 50,
     width: Dimensions.get('screen').width - 50,
@@ -40,6 +42,7 @@ function LeaderBoardHowToEarnScreen({navigation}) {
     y: -1,
     style: {marginVertical: 7, borderRadius: 10},
   };
+
   return (
     <View style={[globalStyles.rootView, {backgroundColor: '#464d55'}]}>
       <View style={{flex: 0.25, alignItems: 'center'}}>
@@ -48,7 +51,8 @@ function LeaderBoardHowToEarnScreen({navigation}) {
             height: Dimensions.get('screen').height * 0.2,
             width: Dimensions.get('screen').width * 0.8,
           }}
-          source={require('../assets/Earn.jpeg')}
+          resizeMode="contain"
+          source={HowToEarnBg}
         />
       </View>
       <View
@@ -60,23 +64,24 @@ function LeaderBoardHowToEarnScreen({navigation}) {
           alignItems: 'center',
           justifyContent: 'space-around',
         }}>
-        <Text style={{color: '#464d55', fontSize: 22}}>How To Earn Points</Text>
+        <Text style={{color: '#464d55', fontSize: 22, marginBottom: 40}}>
+          How To Earn Points
+        </Text>
         <View style={{}}>
-          <HowToEarnText 
-          text={'When you open the app (10 Points)'}
-          imageName={'https://image.flaticon.com/icons/png/128/3142/3142062.png'}
-           />
+          <HowToEarnText
+            text={'When you open the app (10 Points)'}
+            imageName={HowToEarn1}
+          />
           <HowToEarnText
             text={'If you open continuously for 5 days (100 Points)'}
-            imageName={'https://image.flaticon.com/icons/png/128/1170/1170609.png'}
+            imageName={HowToEarn2}
           />
           <HowToEarnText
             text={'If you open continuously for 10 days (200 Points)'}
-            imageName={'https://img-premium.flaticon.com/png/128/2823/premium/2823741.png?token=exp=1627025194~hmac=ad92eca476df0d394707ce64d41dc7b2'}
+            imageName={HowToEarn3}
           />
         </View>
       </View>
-
     </View>
   );
 }

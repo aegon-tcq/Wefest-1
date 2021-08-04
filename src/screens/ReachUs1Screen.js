@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {FlatList, View, Dimensions, Text, TouchableOpacity, Image} from 'react-native';
+import {
+  FlatList,
+  View,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {dashboardScreenStyles as styles} from 'styles/screens/dashboardScreenStyles';
 import {globalStyles} from '../styles/globalStyles';
 import ContainedButton from '../components/Buttons/ContainedButton';
@@ -9,10 +16,9 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 // import {ReachusRoutes} from './ReachusRoutes';
 import AppHeader from '../components/AppHeader';
-import {
-  ReachUs2ScreenRoute
-} from '../navigation/screenNames';
+import {ReachUs2ScreenRoute} from '../navigation/screenNames';
 import ReachUs2Screen from './ReachUs2Screen';
+import PageLayout from './../containers/PageLayout';
 const ReachusRoutes = [
   {
     screenName: 'Name',
@@ -38,77 +44,83 @@ const ReachUs1Screen = ({navigation}) => {
   };
 
   return (
-    <View style={globalStyles.rootView}>
-      <AppHeader title="Reach Us" />
-      <View
-        style={{
-          alignItems:"center",
-        }}
-      />
-      
+    <PageLayout>
+      <View style={globalStyles.rootView}>
+        <AppHeader title="Reach Us" />
+        <View
+          style={{
+            alignItems: 'center',
+          }}
+        />
+
         <Text
           style={{
             color: '#121212',
             fontSize: 24,
-            marginTop:20,
-            textAlign:"center",
-            marginBottom:20
+            marginTop: 20,
+            textAlign: 'center',
+            marginBottom: 20,
           }}>
           EVENT FEEDBACK FORM
         </Text>
-          <FlatList
-            keyExtractor={item => item.screenName}
-            data={ReachusRoutes}
-            style={{height:50}}
-            contentContainerStyle={{alignItems:"center"}}
-            renderItem={({item}) => {
-              return (
-                <BoxShadow setting={shadowOpt}>
-                  <ContainedButton
-                    btnText={item.screenName}
-                    onPress={() => {
-                      if (item.routeName) {
-                        navigation.navigate(item.routeName);
-                      }
-                    }}
-                    isUpperCase={true}
-                    btnStyle={{
-                      elevation: 6,
-                    }}
-                    textStyle={{
-                      ...systemWeights.regular,
-                      color: 'black',
-                    }}
-                  />
-                </BoxShadow>
-              );
-            }}
-          />
-        <View style={{height:"50%", alignItems:"center",justifyContent:'space-between'}} >
-        <Image
-          source={require('../assets/reachus1.jpg')}
-          resizeMode="contain"
+        <FlatList
+          keyExtractor={item => item.screenName}
+          data={ReachusRoutes}
+          style={{height: 50}}
+          contentContainerStyle={{alignItems: 'center'}}
+          renderItem={({item}) => {
+            return (
+              <BoxShadow setting={shadowOpt}>
+                <ContainedButton
+                  btnText={item.screenName}
+                  onPress={() => {
+                    if (item.routeName) {
+                      navigation.navigate(item.routeName);
+                    }
+                  }}
+                  isUpperCase={true}
+                  btnStyle={{
+                    elevation: 6,
+                  }}
+                  textStyle={{
+                    ...systemWeights.regular,
+                    color: 'black',
+                  }}
+                />
+              </BoxShadow>
+            );
+          }}
+        />
+        <View
           style={{
-            height: 200,
-            width: 300,
-          }}></Image>
-        <TouchableOpacity
-        style={{alignItems:"flex-end",width:"100%",padding:15}}
-        onPress={()=>{
-          navigation.push(ReachUs2ScreenRoute);
-        }}
-        >
-          <Text style={{borderBottomWidth:1,fontSize:18}}>Next</Text>
-        </TouchableOpacity>
-        <Image
-          source={require('../assets/bottom-img.jpg')}
-          resizeMode="contain"
-          style={{
-            height: Dimensions.get('screen').height*0.3,
-            width:  Dimensions.get('screen').width*1.5,
-          }}></Image>
+            height: '50%',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <Image
+            source={require('../assets/reachus1.jpg')}
+            resizeMode="contain"
+            style={{
+              height: 200,
+              width: 300,
+            }}></Image>
+          <TouchableOpacity
+            style={{alignItems: 'flex-end', width: '100%', padding: 15}}
+            onPress={() => {
+              navigation.push(ReachUs2ScreenRoute);
+            }}>
+            <Text style={{borderBottomWidth: 1, fontSize: 18}}>Next</Text>
+          </TouchableOpacity>
+          <Image
+            source={require('../assets/bottom-img.jpg')}
+            resizeMode="contain"
+            style={{
+              height: Dimensions.get('screen').height * 0.3,
+              width: Dimensions.get('screen').width * 1.5,
+            }}></Image>
         </View>
-    </View>
+      </View>
+    </PageLayout>
   );
 };
 export default ReachUs1Screen;

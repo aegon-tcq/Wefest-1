@@ -15,8 +15,12 @@ const LeaderBoardLeaderShipScreenRoute = 'LeaderBoardLeaderShipScreen';
 const RegisterScreenRoute = 'RegisterScreen';
 const announcementScreenRoute = 'AnnouncementsScreen';
 const galleryScreenRoute = 'GalleryScreen';
+const leaderpointsRoute = 'LeaderPointsScreen';
+const homeScreenRoute = 'HomeScreen';
+const contactusScreenRoute = 'ContactUsScreen';
 
 export {
+  homeScreenRoute,
   welcomeScreenRoute,
   loginScreenRoute,
   eventsScreenRoute,
@@ -34,4 +38,6 @@ export {
   announcementScreenRoute,
   myEventsScreenRoute,
   galleryScreenRoute,
+  leaderpointsRoute,
+  contactusScreenRoute,
 };
