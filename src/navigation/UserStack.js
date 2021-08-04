@@ -50,6 +50,7 @@ const UserStackScreen = () => {
     <UserStack.Navigator headerMode="none">
       <UserStack.Screen component={WelcomeScreen} name={welcomeScreenRoute} />
       <UserStack.Screen component={LoginScreen} name={loginScreenRoute} />
+      <UserStack.Screen component={HomeScreen} name={homeScreenRoute} />
       <UserStack.Screen
         component={DashboardScreen}
         name={dashboardScreenRoute}
@@ -93,7 +94,7 @@ const UserStackScreen = () => {
         component={LeaderpointsScreen}
         name={leaderpointsRoute}
       />
-      <UserStack.Screen component={HomeScreen} name={homeScreenRoute} />
+
       <UserStack.Screen
         component={ContactUsScreen}
         name={contactusScreenRoute}

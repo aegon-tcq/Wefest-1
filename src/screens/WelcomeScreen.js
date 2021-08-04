@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, Text, View, TouchableOpacity} from 'react-native';
 import {
+  homeScreenRoute,
   loginScreenRoute,
   RegisterScreenRoute,
   StudentDashboardScreenRoute,
@@ -54,7 +55,7 @@ const WelcomeScreen = ({navigation}) => {
                   isAdmin: false,
                 }),
               );
-              navigation.push(StudentDashboardScreenRoute);
+              navigation.push(homeScreenRoute);
             }}
             btnText="Register Later"
           />

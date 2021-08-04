@@ -6,7 +6,7 @@ import GradientButton from '../components/Buttons/GradientButton';
 import {human} from 'react-native-typography';
 import TextButton from '../components/Buttons/TextButton';
 import NavigationHeader from '../components/NavigationHeader';
-import {dashboardScreenRoute} from '../navigation/screenNames';
+import {homeScreenRoute} from '../navigation/screenNames';
 import {useDispatch} from 'react-redux';
 import {setAuthState} from './../redux/actions/authActions';
 
@@ -77,7 +77,7 @@ const LoginScreen = ({navigation}) => {
                   isAdmin: true,
                 }),
               );
-              navigation.navigate(dashboardScreenRoute);
+              navigation.navigate(homeScreenRoute);
             }}
           />
         </View>
