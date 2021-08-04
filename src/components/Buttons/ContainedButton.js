@@ -22,7 +22,9 @@ const ContainedButton = ({
       <View
         style={[
           !addIcon ? globalStyles.flexCenter : globalStyles.rowSb,
+          icon ? globalStyles.rowSb : globalStyles.flexCenter,
           {
+            textAlign:"center",
             flex: 1,
           },
           btnContainerStyle,
@@ -30,7 +32,7 @@ const ContainedButton = ({
         <Text style={[buttonStyles.buttonText, textStyle]}>
           {isUpperCase ? btnText.toUpperCase() : btnText}
         </Text>
-
+        {icon}
         {addIcon && (
           <View>
             <AntDesignIcon

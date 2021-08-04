@@ -4,7 +4,7 @@ import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import AppHeader from 'components/AppHeader';
 import FilterView from 'components/FilterView';
 import {globalStyles} from 'styles/globalStyles';
-import Colors from 'constants/Colors';
+import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 
 

@@ -1,36 +1,51 @@
 import {
-    MemberScreenRoute,
-    directoryScreenRoute,
-    announcementScreenRoute,
-    galleryScreenRoute,
-    LeaderBoardHomeScreenRoute,
-  } from '../navigation/screenNames';
-  
-  export const dashboardRoutes = [
-    {
-      screenName: 'Home Page',
-      routeName: '',
-    },
-    {
-      screenName: 'Become A Member',
-      routeName: MemberScreenRoute,
-    },
-    
-   
-    {
-      screenName: 'Gallery',
-      routeName: galleryScreenRoute,
-    },
-    {
-      screenName: 'Directory',
-      routeName: directoryScreenRoute,
-    },
-    {
-      screenName: 'Announcements',
-      routeName: announcementScreenRoute,
-    },
-    {
-      screenName: 'Leaderboards',
-      routeName: LeaderBoardHomeScreenRoute,
-    },
-  ];
+  MemberScreenRoute,
+  directoryScreenRoute,
+  announcementScreenRoute,
+  galleryScreenRoute,
+  LeaderBoardHomeScreenRoute,
+  LeaderBoardHowToEarnScreenRoute,
+  LeaderBoardLeaderShipScreenRoute,
+} from '../navigation/screenNames';
+
+export const dashboardRoutes = [
+  {
+    screenName: 'Home Page',
+    routeName: '',
+  },
+  {
+    screenName: 'Become A Member',
+    routeName: MemberScreenRoute,
+  },
+
+  {
+    screenName: 'Gallery',
+    routeName: galleryScreenRoute,
+  },
+  {
+    screenName: 'Directory',
+    routeName: directoryScreenRoute,
+  },
+  {
+    screenName: 'Announcements',
+    routeName: announcementScreenRoute,
+  },
+  {
+    screenName: 'Leaderboards',
+    routeName: LeaderBoardHomeScreenRoute,
+    child: [
+      {
+        screenName: 'Your Point',
+        routeName: LeaderBoardHomeScreenRoute,
+      },
+      {
+        screenName: 'How To Earn',
+        routeName: LeaderBoardHowToEarnScreenRoute,
+      },
+      {
+        screenName: 'LeaderBoard Chart',
+        routeName: LeaderBoardLeaderShipScreenRoute,
+      },
+    ],
+  },
+];
