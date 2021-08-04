@@ -1,11 +1,5 @@
 import React from 'react'
-import {StyleSheet, Text, View, FlatList, Dimensions, Image} from 'react-native';
-import AppHeader from "../components/AppHeader";
-import ContainedButton from "../components/Buttons/ContainedButton";
-import {systemWeights, human} from 'react-native-typography';
-import NavigationHeader from '../components/NavigationHeader';
-import {BoxShadow} from 'react-native-shadow';
-import {eventsScreenRoute, directoryScreenRoute} from 'navigation/screenNames';
+import { Text, View, FlatList, Dimensions, Image} from 'react-native';
 import {globalStyles} from '../styles/globalStyles';
 import { leaderBoardLeaderShipStyles } from '../styles/screens/leaderBoardLeaderShipStyles';
 import AppHeaderWithImage from '../components/AppHeaderWithImage';

@@ -8,12 +8,9 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './StudentDashboardRoutes';
 import Icon from 'react-native-vector-icons/Entypo';
+import {contactusScreenRoute} from '../navigation/screenNames';
 
-const StudentDashboardScreen = ({
-  navigation,
-  isDrawer = false,
-  handleClose,
-}) => {
+const StudentDashboardScreen = ({navigation, isDrawer = true, handleClose}) => {
   const shadowOpt = {
     height: 50,
     width: Dimensions.get('screen').width - 50,
@@ -32,7 +29,6 @@ const StudentDashboardScreen = ({
     if (dropDownVisible === null) setDropDownVisible(value);
     else setDropDownVisible(null);
   };
-
 
   return (
     <View style={globalStyles.screenView}>
@@ -66,13 +62,6 @@ const StudentDashboardScreen = ({
                           size={20}
                         />
                       ) : null
-              <BoxShadow setting={shadowOpt}>
-                <ContainedButton
-                  btnText={item.screenName}
-                  onPress={() => {
-                    if (item.routeName) {
-                      navigation.push(item.routeName);
-                      isDrawer && handleClose();
                     }
                     btnText={item.screenName}
                     onPress={() => {
@@ -93,8 +82,9 @@ const StudentDashboardScreen = ({
                   />
                 </BoxShadow>
                 {item.child && dropDownVisible
-                  ? item.child.map(ch => (
+                  ? item.child.map((ch, index) => (
                       <ContainedButton
+                        key={index + 'dropdownchild'}
                         btnText={ch.screenName}
                         onPress={() => navigation.push(ch.routeName)}
                         variant="secondary"
@@ -136,7 +126,9 @@ const StudentDashboardScreen = ({
         />
         <ContainedButton
           btnText="Contact Us"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate(contactusScreenRoute);
+          }}
           isUpperCase={true}
           variant="secondary"
           btnStyle={{

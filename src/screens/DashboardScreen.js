@@ -8,8 +8,9 @@ import NavigationHeader from '../components/NavigationHeader';
 import {BoxShadow} from 'react-native-shadow';
 import {dashboardRoutes} from './dashboardRoutes';
 import Icon from 'react-native-vector-icons/Entypo';
-const DashboardScreen = ({navigation}) => {
-import {contactusScreenRoute} from '../navigation/screenNames';
+import {useDispatch} from 'react-redux';
+import {setAuthState} from './../redux/actions/authActions';
+
 const DashboardScreen = ({navigation, isDrawer = false, handleClose}) => {
   const shadowOpt = {
     height: 50,
@@ -23,10 +24,23 @@ const DashboardScreen = ({navigation, isDrawer = false, handleClose}) => {
     style: {marginVertical: 7, borderRadius: 10},
   };
   const [dropDownVisible, setDropDownVisible] = React.useState(null);
-
+  const dispatch = useDispatch();
   const changedropDownVisibility = value => {
-    if (dropDownVisible === null) setDropDownVisible(value);
-    else setDropDownVisible(null);
+    if (dropDownVisible === null) {
+      setDropDownVisible(value);
+      dispatch(
+        setAuthState({
+          allowSwipeUp: false,
+        }),
+      );
+    } else {
+      setDropDownVisible(null);
+      dispatch(
+        setAuthState({
+          allowSwipeUp: true,
+        }),
+      );
+    }
   };
 
   return (
@@ -42,6 +56,7 @@ const DashboardScreen = ({navigation, isDrawer = false, handleClose}) => {
       />
       <View style={styles.container}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           keyExtractor={item => item.screenName}
           data={dashboardRoutes}
           renderItem={({item}) => {
@@ -61,13 +76,6 @@ const DashboardScreen = ({navigation, isDrawer = false, handleClose}) => {
                           size={20}
                         />
                       ) : null
-              <BoxShadow setting={shadowOpt}>
-                <ContainedButton
-                  btnText={item.screenName}
-                  onPress={() => {
-                    if (item.routeName) {
-                      navigation.navigate(item.routeName);
-                      isDrawer && handleClose();
                     }
                     btnText={item.screenName}
                     onPress={() => {
@@ -131,9 +139,7 @@ const DashboardScreen = ({navigation, isDrawer = false, handleClose}) => {
         />
         <ContainedButton
           btnText="Contact Us"
-          onPress={() => {
-            navigation.navigate(contactusScreenRoute);
-          }}
+          onPress={() => {}}
           isUpperCase={true}
           variant="secondary"
           btnStyle={{

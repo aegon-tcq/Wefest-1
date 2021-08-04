@@ -7,7 +7,6 @@ import {
   ReachUs1ScreenRoute,
   ReachUs2ScreenRoute,
   AttendanceScreenRoute,
-  StudentDashboardScreenRoute,
   LeaderBoardHomeScreenRoute,
   LeaderBoardHowToEarnScreenRoute,
   LeaderBoardLeaderShipScreenRoute,

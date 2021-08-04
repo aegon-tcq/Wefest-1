@@ -3,6 +3,7 @@ import {Dimensions, Animated} from 'react-native';
 import {globalStyles} from './../styles/globalStyles';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import ActionModal from '../components/ActionModal';
+import {useSelector} from 'react-redux';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -10,7 +11,7 @@ const deviceWidth = Dimensions.get('window').width;
 const PageLayout = props => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const slideInTop = React.useRef(new Animated.Value(-deviceHeight)).current;
-
+  const {allowSwipeUp} = useSelector(state => state.authState);
   function openModal() {
     setShowDrawer(true);
     Animated.timing(slideInTop, {
@@ -35,7 +36,9 @@ const PageLayout = props => {
   }
 
   function onSwipeUp(gestureState) {
-    closeModal();
+    if (allowSwipeUp) {
+      closeModal();
+    }
   }
 
   const config = {
