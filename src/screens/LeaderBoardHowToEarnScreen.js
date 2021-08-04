@@ -1,5 +1,18 @@
 import React from 'react';
-import {Text, View, Dimensions, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Dimensions,
+  Image,
+} from 'react-native';
+import AppHeader from '../components/AppHeader';
+import ContainedButton from '../components/Buttons/ContainedButton';
+import {systemWeights, human} from 'react-native-typography';
+import NavigationHeader from '../components/NavigationHeader';
+import {BoxShadow} from 'react-native-shadow';
+import {eventsScreenRoute, directoryScreenRoute} from 'navigation/screenNames';
 import {globalStyles} from '../styles/globalStyles';
 import HowToEarn1 from '../assets/hte1.png';
 import HowToEarn2 from '../assets/hte2.png';
@@ -17,6 +30,19 @@ const HowToEarnText = ({text = 'text here', imageName}) => (
 );
 
 function LeaderBoardHowToEarnScreen({navigation}) {
+
+  const shadowOpt = {
+    height: 50,
+    width: Dimensions.get('screen').width - 50,
+    color: '#E9948D',
+    border: 3,
+    radius: 12,
+    opacity: 0.2,
+    x: 0,
+    y: -1,
+    style: {marginVertical: 7, borderRadius: 10},
+  };
+
   return (
     <View style={[globalStyles.rootView, {backgroundColor: '#464d55'}]}>
       <View style={{flex: 0.25, alignItems: 'center'}}>
@@ -36,7 +62,7 @@ function LeaderBoardHowToEarnScreen({navigation}) {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           alignItems: 'center',
-          paddingVertical: 40,
+          justifyContent: 'space-around',
         }}>
         <Text style={{color: '#464d55', fontSize: 22, marginBottom: 40}}>
           How To Earn Points

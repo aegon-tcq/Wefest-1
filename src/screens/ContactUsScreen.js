@@ -1,10 +1,16 @@
 import React from 'react';
 import {Linking} from 'react-native';
 import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import AppHeader from 'components/AppHeader';
+import FilterView from 'components/FilterView';
+import {globalStyles} from 'styles/globalStyles';
+import Colors from '../constants/Colors';
+import {human} from 'react-native-typography';
 import ImageHeader from '../components/ImageHeader';
 import HeaderImage from '../assets/contactus.jpg';
 import {contactusScreenStyles as styles} from './../styles/screens/contactusScreenStyles';
 import Colors from '../constants/Colors';
+
 
 const ContactUsScreen = ({navigation}) => {
   return (

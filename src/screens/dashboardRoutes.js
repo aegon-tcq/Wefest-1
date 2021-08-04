@@ -46,9 +46,34 @@ export const dashboardRoutes = [
   {
     screenName: 'React Out',
     routeName: ReachUs1ScreenRoute,
+    child: [
+      {
+        screenName: 'Feedback',
+        routeName: ReachUs1ScreenRoute,
+      },
+      {
+        screenName: 'Event idea pitch',
+        routeName: ReachUs2ScreenRoute,
+      },
+    ],
   },
+
   {
     screenName: 'Leaderboards',
     routeName: LeaderBoardHomeScreenRoute,
+    child: [
+      {
+        screenName: 'Your Point',
+        routeName: LeaderBoardHomeScreenRoute,
+      },
+      {
+        screenName: 'How To Earn',
+        routeName: LeaderBoardHowToEarnScreenRoute,
+      },
+      {
+        screenName: 'LeaderBoard Chart',
+        routeName: LeaderBoardLeaderShipScreenRoute,
+      },
+    ],
   },
 ];
