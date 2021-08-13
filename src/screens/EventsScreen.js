@@ -17,6 +17,7 @@ import {
 } from '../redux/actions/eventActions';
 import {API_BASE_URL} from '../constants/ApiUrl';
 import Loader from '../components/Loader';
+import {setEventState} from './../redux/actions/eventActions';
 
 const EventsScreen = ({navigation}) => {
   const [addEventModalVisible, setAddEventModalVisible] = React.useState(false);
@@ -25,7 +26,7 @@ const EventsScreen = ({navigation}) => {
     setAddEventModalVisible(!addEventModalVisible);
   };
   const dispatch = useDispatch();
-  const {events, loading} = useSelector(state => state.eventsState);
+  const {events, loading, isEdit} = useSelector(state => state.eventsState);
 
   const getEventList = async () => {
     dispatch(eventRequest());
@@ -39,10 +40,11 @@ const EventsScreen = ({navigation}) => {
     }
   };
 
-  React.useEffect(() => {
-    getEventList();
-  }, []);
+  // React.useEffect(() => {
+  //   getEventList();
+  // }, []);
 
+  console.log(events.length);
   return loading ? (
     <Loader />
   ) : (
@@ -62,11 +64,17 @@ const EventsScreen = ({navigation}) => {
             renderItem={({item, index}) => {
               return (
                 <EventCard
-                  date={item.eventDate}
-                  name={item.eventName}
+                  date={item.date}
+                  name={item.event}
                   showEdit={isAdmin}
                   onPressEdit={() => {
-                    navigation.navigate(eventEditRoute);
+                    // navigation.navigate(eventEditRoute);
+                    dispatch(
+                      setEventState({
+                        selectedEvent: item,
+                        isEdit: true,
+                      }),
+                    );
                   }}
                   titleColor={cardColors[index % 4].titleColor}
                   cardColor={cardColors[index % 4].cardBg}
@@ -97,7 +105,7 @@ const EventsScreen = ({navigation}) => {
 
         <Modal
           animationType="slide"
-          visible={addEventModalVisible}
+          visible={addEventModalVisible || isEdit}
           onRequestClose={() => {
             changeAddEventModalVisiblity();
           }}>
