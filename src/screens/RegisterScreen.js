@@ -8,19 +8,31 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import FormInput from '../components/FormComponents/FormInput';
 import {globalStyles} from '../styles/globalStyles';
 import GradientButton from '../components/Buttons/GradientButton';
 import NavigationHeader from '../components/NavigationHeader';
-import {dashboardScreenRoute, homeScreenRoute} from '../navigation/screenNames';
+import {
+  dashboardScreenRoute,
+  homeScreenRoute,
+  StudentDashboardScreenRoute,
+} from '../navigation/screenNames';
 import Feather from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'react-native-image-picker';
+import {API_BASE_URL} from '../constants/ApiUrl';
+import {setAuthState} from '../redux/actions/authActions';
+import Loader from '../components/Loader';
+import {checkEmptyField,alert} from "../utils"
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const RegisterScreen = ({navigation}) => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -76,7 +88,71 @@ const RegisterScreen = ({navigation}) => {
     });
   };
 
-  return (
+  const onRegister = async () => {
+
+
+    // if(checkEmptyField(registerForm)){
+    //   alert('Warning', 'Fields cannot be empty');
+    //   return;
+    // }
+
+    // setLoading(true);
+    // try {
+    //   let response = await fetch(`${API_BASE_URL}/register.php`, {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       sendimage: imageFile.fileUri,
+    //       firstName: 'rohant',
+    //       lastName: 'villarosa',
+    //       password: 'rohant@123',
+    //       email: 'rohant@gmail.com',
+    //       Batch_Number: '3',
+    //     }),
+    //   });
+    //   let result = await response.json();
+
+      // console.log(result);
+      // if (result[0].success) {
+      //   onRegisterSuccess();
+      // } else {
+      //   setLoading(false);
+      //   alert("Error","Something went wrong");
+      // }
+    // } catch (error) {
+    //   console.error(error);
+    //   alert("Error","Something went wrong");
+    //   setLoading(false);
+    // }
+  };
+
+  const onRegisterSuccess = async () => {
+    await AsyncStorage.setItem(
+      'authState',
+      JSON.stringify({
+        isLoggedIn: true,
+        user: {},
+        isAdmin: true,
+      }),
+    );
+
+    dispatch(
+      setAuthState({
+        isAdmin: true,
+        user: loginForm,
+      }),
+    );
+
+    setLoading(false);
+    navigation.navigate(homeScreenRoute);
+  };
+
+  return loading ? (
+    <Loader />
+  ) : (
     <KeyboardAvoidingView style={{flex: 1}}>
       <NavigationHeader navigation={navigation} />
       <View style={[globalStyles.screenView, {alignItems: 'center'}]}>
@@ -170,7 +246,8 @@ const RegisterScreen = ({navigation}) => {
               borderRadius: 22,
             }}
             onPress={() => {
-              navigation.navigate(homeScreenRoute);
+              onRegister();
+              // navigation.navigate(homeScreenRoute);
             }}
           />
         </View>

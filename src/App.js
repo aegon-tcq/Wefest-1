@@ -7,30 +7,76 @@ import AdminStackScreen from './navigation/AdminStack';
 import {store, persistor} from './redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import SplashScreen from './screens/SplashScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setAuthState} from './redux/actions/authActions';
+import {useDispatch, useSelector} from 'react-redux';
+import UserHomeStackScreen from './navigation/userHomeStack';
 
-const RootAppWithProvider = () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <NavigationContainer>
-        <UserStackScreen />
-      </NavigationContainer>
-    </PersistGate>
-  </Provider>
+const RootApp = () => (
+  <NavigationContainer>
+    <UserStackScreen />
+  </NavigationContainer>
+);
+
+const RootUserHomeStack = () => (
+  <NavigationContainer>
+    <UserHomeStackScreen />
+  </NavigationContainer>
 );
 
 const App = () => {
   const [showSplashScreen, setShowSplashScreen] = React.useState(true);
-  React.useEffect(() => {
+  const [isLoggedIn, setIsLoggedin] = React.useState(false);
+  const dispatch = useDispatch();
+  const {user} = useSelector(state=>state.authState)
+
+
+  
+  const getUserDetails = async () => {
+    
+    // await AsyncStorage.setItem('authState',JSON.stringify({
+    //   isLoggedIn:false,
+    //   user:null
+    // }))
+    let result = await AsyncStorage.getItem('authState');
+     result = await JSON.parse(result)
+
+    if (result.isLoggedIn) {
+      dispatch(
+        setAuthState({
+          isAdmin: true,
+          user: result.user,
+        }),
+      );
+    }
+
+
     const timeOut = setTimeout(() => {
       setShowSplashScreen(false);
     }, 3000);
+    checkLoggedIn();
     return () => {
       clearTimeout(timeOut);
-    };
+    };    
+  };
+
+  const checkLoggedIn = () => {
+    
+    if(user) setIsLoggedin(true);
+  }
+
+  React.useEffect(()=>{
+    console.log("cheking")
+    checkLoggedIn();
+  },[user])
+
+  React.useEffect(() => {
+    getUserDetails();
   }, []);
 
   if (showSplashScreen) return <SplashScreen />;
-  return <RootAppWithProvider />;
+  if (isLoggedIn) return <RootUserHomeStack />;
+  return <RootApp />;
 };
 
 export default App;

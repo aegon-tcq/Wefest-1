@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, View, Text} from 'react-native';
+import {FlatList, View, Text, Image} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import AppHeader from '../components/AppHeader';
 import ContainedButton from '../components/Buttons/ContainedButton';
@@ -7,10 +7,17 @@ import {galleryScreenStyles} from '../styles/screens/galleryScreenStyles';
 import {globalStyles} from '../styles/globalStyles';
 import FilterView from '../components/FilterView';
 import {human} from 'react-native-typography';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import PageLayout from './../containers/PageLayout';
+import {
+  galleryRequest,
+  galleryRequestFail,
+  galleryRequestSuccess
+} from "../redux/actions/galleryActions"
+import Loader from '../components/Loader';
+import {API_BASE_URL} from '../constants/ApiUrl';
 
-const GalleryItem = ({isEdit}) => {
+const GalleryItem = ({item, isEdit}) => {
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
 
   const showCheckBox = () => {
@@ -38,13 +45,42 @@ const GalleryItem = ({isEdit}) => {
     }
     return null;
   };
-  return <View style={galleryScreenStyles.galleryItem}>{showCheckBox()}</View>;
+  return <View style={galleryScreenStyles.galleryItem}>
+    <Image
+    style={{height:"100%",width:"100%",borderRadius:10}}
+    source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd6KlPGqecE8gRuvPcsbsZ6OSQbZxbvEA-uw&usqp=CAU"}}
+     />
+     {showCheckBox()}
+  </View>;
 };
 
 const GalleryScreen = () => {
   const [isEdit, setIsEdit] = React.useState(false);
   const {isAdmin} = useSelector(state => state.authState);
-  return (
+
+  const dispatch = useDispatch();
+  const {gallery, loading} = useSelector(
+    state => state.galleryState,
+  );
+
+
+  const getImageList = async () => {
+    dispatch(galleryRequest());
+    try {
+      let response = await fetch(`${API_BASE_URL}/galleryuser.php`);
+      let json = await response.json();
+      dispatch(galleryRequestSuccess(json));
+    } catch (error) {
+      console.error(error);
+      dispatch(galleryRequestFail(json));
+    }
+  }
+
+  React.useEffect(() => {
+    getImageList();
+  }, []);
+
+  return loading ? <Loader /> :  (
     <PageLayout>
       <View style={globalStyles.rootView}>
         <AppHeader title="Gallery" />
@@ -55,10 +91,10 @@ const GalleryScreen = () => {
         <View style={galleryScreenStyles.listView}>
           <FlatList
             numColumns={2}
-            keyExtractor={item => item}
-            data={[0, 1, 2, 3, 4, 5]}
+            data={gallery}
+            keyExtractor={(item, index) => 'key' + index}
             renderItem={({item}) => {
-              return <GalleryItem isEdit={isEdit} />;
+              return <GalleryItem item={item} isEdit={isEdit} />;
             }}
           />
         </View>

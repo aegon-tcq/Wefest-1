@@ -4,10 +4,11 @@ import {inputFormStyles} from '../../styles/components/formStyles';
 
 const FormInput = ({
   name,
+  numeric,
   labelText = 'Input Label',
   placeHolder = 'Enter the placeholder',
   value = '',
-  onChangeText,
+  onChangeText = ()=>{},
   inputContainerStyle = {},
   inputStyle = {},
   labelStyle = {},
@@ -20,7 +21,9 @@ const FormInput = ({
           placeholder={placeHolder}
           placeholderTextColor="grey"
           value={value}
-          onChangeText={text => onChangeText(name, text)}
+          keyboardType={ numeric ?  "phone-pad" : "default"}
+          numeric={numeric}
+          onChangeText={onChangeText}
           style={[inputFormStyles.inputStyle, inputStyle]}
           secureTextEntry={name === 'password'}
         />
@@ -28,6 +31,8 @@ const FormInput = ({
         <TextInput
           placeholder={placeHolder}
           placeholderTextColor="grey"
+          onChangeText={onChangeText}
+          keyboardType={ numeric ?  "phone-pad" : "default"}
           style={[inputFormStyles.inputStyle, inputStyle]}
           secureTextEntry={name === 'password'}
         />

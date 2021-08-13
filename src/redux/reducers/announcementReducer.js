@@ -19,6 +19,7 @@ export const announcementReducer = (state = initialState, action) => {
       };
 
     case FETCH_ANNOUNCEMENTS_SUCCESS:
+      console.log("reducer",action.payload)
       return {
         ...state,
         loading: false,

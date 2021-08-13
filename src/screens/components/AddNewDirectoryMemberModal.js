@@ -13,14 +13,45 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as ImagePicker from 'react-native-image-picker';
 import ContainedButton from '../../components/Buttons/ContainedButton';
 import {systemWeights, human} from 'react-native-typography';
+import {
+  directoryRequest,
+  directoryRequestFail,
+  directoryRequestSuccess,
+} from '../../redux/actions/directoryActions';
+import {API_BASE_URL} from '../../constants/ApiUrl';
+import {useSelector, useDispatch} from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default AddNewDirectoryMemberModal = ({
+  directoryData = null,
   onModalClose = () => console.log('modal close Btn'),
 }) => {
   const [imageFile, setImageFile] = useState(null);
+
+  const dispatch = useDispatch();
+  const {directory, loading} = useSelector(state => state.directoryState);
+
+  const [directoryForm, setDirectoryForm] = React.useState(
+    directoryData
+      ? directoryData
+      : {
+          username: '',
+          userRole: '',
+          mail: '',
+          phone: '',
+          id: directory.length,
+        },
+  );
+
+  const handleInputChange = (key, value) => {
+    setDirectoryForm({
+      ...directoryForm,
+      [key]: value,
+    });
+  };
+
   const chooseImage = () => {
     let options = {
       storageOptions: {
@@ -51,6 +82,67 @@ export default AddNewDirectoryMemberModal = ({
         });
       }
     });
+  };
+
+  //return true if empty value..
+  const checkValues = () => {
+    for (let key in directoryForm) if (directoryForm[key] == '') return true;
+    return false;
+  };
+
+  const findIndexofDirectoryForm = () => {
+    for(let i = 0; i < directory.length ;i ++) 
+    if(directory[i].id == directoryForm.id) return i;
+  }
+
+  const updateDirectory = async () => {
+    if (!checkValues()) {
+    const newDirectory = directory.filter(dir => dir.id != directoryForm.id);
+    newDirectory.splice(findIndexofDirectoryForm(),0,directoryForm);
+      dispatch(directoryRequest());
+
+      try {
+        let response = await fetch(`${API_BASE_URL}/updatedirectory.php`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(directoryForm),
+        });
+        console.log("updtaed")
+        dispatch(directoryRequestSuccess(newDirectory));
+        onModalClose();
+      } catch (error) {
+        console.error(error);
+        dispatch(directoryRequestFail(newDirectory));
+        onModalClose();
+      }
+    }
+  };
+
+  const addNewDirectory = async () => {
+    if (!checkValues()) {
+      const newDirectory = [...directory, directoryForm];
+      dispatch(directoryRequest());
+
+      try {
+        let response = await fetch(`${API_BASE_URL}/directoryadmin.php`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(directoryForm),
+        });
+        dispatch(directoryRequestSuccess(newDirectory));
+        onModalClose();
+      } catch (error) {
+        console.error(error);
+        dispatch(directoryRequestFail(newDirectory));
+        onModalClose();
+      }
+    }
   };
 
   return (
@@ -92,29 +184,37 @@ export default AddNewDirectoryMemberModal = ({
             <FormInput
               labelText="UserName"
               name="username"
-              onChangeText={(name, text) => {}}
+              value={directoryForm.username}
+              onChangeText={value => handleInputChange('username', value)}
             />
             <FormInput
               labelText="UserRole"
               name="userrole"
-              onChangeText={(name, text) => {}}
+              value={directoryForm.userRole}
+              onChangeText={value => handleInputChange('userRole', value)}
             />
             <FormInput
               labelText="Email "
               name="email"
-              onChangeText={(name, text) => {}}
+              value={directoryForm.mail}
+              onChangeText={value => handleInputChange('mail', value)}
             />
             <FormInput
               labelText="Phone no."
               name="phone"
-              onChangeText={(name, text) => {}}
+              numeric
+              value={directoryForm.phone}
+              onChangeText={value => handleInputChange('phone', value)}
             />
           </View>
 
           <View>
             <ContainedButton
               btnText="Submit"
-              onPress={() => {}}
+              onPress={() => {
+                if (directoryData) updateDirectory();
+                else addNewDirectory();
+              }}
               isUpperCase={true}
               variant="secondary"
               btnStyle={{

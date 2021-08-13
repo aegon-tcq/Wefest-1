@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {
-  FlatList,
+  ScrollView,
   View,
   Dimensions,
   Text,
@@ -19,16 +19,8 @@ import AppHeader from '../components/AppHeader';
 import {ReachUs2ScreenRoute} from '../navigation/screenNames';
 import ReachUs2Screen from './ReachUs2Screen';
 import PageLayout from './../containers/PageLayout';
-const ReachusRoutes = [
-  {
-    screenName: 'Name',
-    routeName: '',
-  },
-  {
-    screenName: 'EventName',
-    routeName: '',
-  },
-];
+import FormInput from '../components/FormComponents/FormInput';
+import {alert, checkEmptyField} from "../utils";
 
 const ReachUs1Screen = ({navigation}) => {
   const shadowOpt = {
@@ -43,9 +35,30 @@ const ReachUs1Screen = ({navigation}) => {
     style: {marginVertical: 7, borderRadius: 10},
   };
 
+  const [reachUs1Form, setReachUs1Form] = React.useState({
+    name: '',
+    eventname:''
+  });
+
+  const handleInputChange = (key, value) => {
+    setReachUs1Form({
+      ...reachUs1Form,
+      [key]: value,
+    });
+  };
+  
+  const navigateToNextScreen = () => {
+
+    if(checkEmptyField(reachUs1Form)){
+      alert('Warning','Fields cannot be empty');
+      return
+    }
+    navigation.push(ReachUs2ScreenRoute,reachUs1Form);
+  }
+
   return (
     <PageLayout>
-      <View style={globalStyles.rootView}>
+      <ScrollView style={globalStyles.rootView}>
         <AppHeader title="Reach Us" />
         <View
           style={{
@@ -63,37 +76,23 @@ const ReachUs1Screen = ({navigation}) => {
           }}>
           EVENT FEEDBACK FORM
         </Text>
-        <FlatList
-          keyExtractor={item => item.screenName}
-          data={ReachusRoutes}
-          style={{height: 50}}
-          contentContainerStyle={{alignItems: 'center'}}
-          renderItem={({item}) => {
-            return (
-              <BoxShadow setting={shadowOpt}>
-                <ContainedButton
-                  btnText={item.screenName}
-                  onPress={() => {
-                    if (item.routeName) {
-                      navigation.navigate(item.routeName);
-                    }
-                  }}
-                  isUpperCase={true}
-                  btnStyle={{
-                    elevation: 6,
-                  }}
-                  textStyle={{
-                    ...systemWeights.regular,
-                    color: 'black',
-                  }}
-                />
-              </BoxShadow>
-            );
-          }}
-        />
+
+        <View style={{flex: 1, padding: 20}}>
+          <FormInput
+            labelText="Name"
+            name="name"
+            onChangeText={value => handleInputChange('name', value)}
+          />
+          <FormInput
+            labelText="Event Name"
+            name="eventname"
+            onChangeText={value => handleInputChange('eventname', value)}
+          />
+        </View>
+
         <View
           style={{
-            height: '50%',
+            height:Dimensions.get('screen').height*0.45 ,
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
@@ -101,25 +100,23 @@ const ReachUs1Screen = ({navigation}) => {
             source={require('../assets/reachus1.jpg')}
             resizeMode="contain"
             style={{
-              height: 200,
+              height: "50%",
               width: 300,
-            }}></Image>
+            }} />
           <TouchableOpacity
             style={{alignItems: 'flex-end', width: '100%', padding: 15}}
-            onPress={() => {
-              navigation.push(ReachUs2ScreenRoute);
-            }}>
+            onPress={navigateToNextScreen}>
             <Text style={{borderBottomWidth: 1, fontSize: 18}}>Next</Text>
           </TouchableOpacity>
           <Image
             source={require('../assets/bottom-img.jpg')}
-            resizeMode="contain"
+            resizeMode="cover"
             style={{
-              height: Dimensions.get('screen').height * 0.3,
-              width: Dimensions.get('screen').width * 1.5,
-            }}></Image>
+              height: "20%",
+              width: "100%",
+            }} />
         </View>
-      </View>
+      </ScrollView>
     </PageLayout>
   );
 };

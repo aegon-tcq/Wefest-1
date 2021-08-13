@@ -8,12 +8,19 @@ import ExpandedCard from '../components/ExpandedCard';
 import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 import AddAnnouncementModal from './components/AddAnnouncementModal';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import PageLayout from './../containers/PageLayout';
+import {
+  announcmentRequest,
+  announcmentRequestFail,
+  announcmentRequestSuccess,
+} from '../redux/actions/announcementActions';
+import Loader from '../components/Loader';
+import {API_BASE_URL} from '../constants/ApiUrl';
 
 const announcementColors = [Colors.primary, Colors.brown, Colors.pinkShade1];
 
-const AnnouncementItem = ({item, index, isAdmin}) => {
+const AnnouncementItem = ({item, index, isAdmin, onEditDetailsPress}) => {
   const [open, setOpen] = React.useState(false);
 
   const contentLeft = () => (
@@ -30,21 +37,22 @@ const AnnouncementItem = ({item, index, isAdmin}) => {
         }}
       />
       <View>
-        <Text style={human.title3}>NAME</Text>
-        <Text style={{...human.bodyObject, marginTop: 5}}>{'Award'}</Text>
+        <Text style={human.title3}>{item.Name}</Text>
+        <Text style={{...human.bodyObject, marginTop: 5}}>{item.Award}</Text>
       </View>
     </View>
   );
 
   const contentRight = () => (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-      <Text style={human.title3}>Date</Text>
+      <Text style={human.title3}>{item.Date}</Text>
     </View>
   );
   return (
     <ExpandedCard
       cardColor={announcementColors[index % announcementColors.length]}
       expanded={open}
+      onEditPress={()=>onEditDetailsPress(item)}
       disabled={!isAdmin}
       onPress={() => {
         if (isAdmin) {
@@ -75,8 +83,38 @@ const AnnouncementsScreen = () => {
     setAnnouncementModal(!addAnnouncementModal);
   };
 
+  const [editAnnouncementData, setEditAnnouncementData] = React.useState(null);
+
+  const onEditDetailsPress = (item) => {
+    setEditAnnouncementData(item);
+    toggleAnnouncementModal();
+  }
+
+  const dispatch = useDispatch();
+  const {announcements, loading} = useSelector(
+    state => state.announcementState,
+  );
+
+    const getAnnouncementsList = async () => {
+      dispatch(announcmentRequest());
+      try {
+        let response = await fetch(`${API_BASE_URL}/announcementsuser.php`);
+        let json = await response.json();
+        dispatch(announcmentRequestSuccess(json));
+      } catch (error) {
+        console.error(error);
+        dispatch(announcmentRequestFail(json));
+      }
+    }
+
+    React.useEffect(() => {
+      getAnnouncementsList();
+    }, []);
+
   const {isAdmin} = useSelector(state => state.authState);
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <PageLayout>
       <View style={globalStyles.rootView}>
         <AppHeader title="Announcements" />
@@ -87,11 +125,13 @@ const AnnouncementsScreen = () => {
             paddingHorizontal: 15,
           }}>
           <FlatList
-            keyExtractor={item => item}
-            data={[0, 1, 2, 3, 4]}
+            data={announcements}
+            keyExtractor={(item, index) => 'key' + index}
             renderItem={({item, index}) => {
               return (
-                <AnnouncementItem key={item} index={index} isAdmin={isAdmin} />
+                <AnnouncementItem 
+                onEditDetailsPress={onEditDetailsPress}
+                item={item} key={item} index={index} isAdmin={isAdmin} />
               );
             }}
           />
@@ -122,7 +162,9 @@ const AnnouncementsScreen = () => {
           onRequestClose={() => {
             toggleAnnouncementModal();
           }}>
-          <AddAnnouncementModal onModalClose={toggleAnnouncementModal} />
+          <AddAnnouncementModal 
+          announcementData={editAnnouncementData}
+          onModalClose={toggleAnnouncementModal} />
         </Modal>
       </View>
     </PageLayout>
