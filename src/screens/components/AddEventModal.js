@@ -16,10 +16,12 @@ import {systemWeights, human} from 'react-native-typography';
 import {
   eventRequest,
   eventRequestFail,
-  eventRequestSuccess
-} from "../../redux/actions/eventActions";
-import {API_BASE_URL} from "../../constants/ApiUrl";
+  eventRequestSuccess,
+} from '../../redux/actions/eventActions';
+import {API_BASE_URL} from '../../constants/ApiUrl';
 import {useSelector, useDispatch} from 'react-redux';
+import {setEventState} from './../../redux/actions/eventActions';
+import {updateEventService} from './../../services/eventService';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -30,12 +32,14 @@ export default AddeventModal = ({
   const [imageFile, setImageFile] = useState(null);
 
   const dispatch = useDispatch();
-  const {events, loading} = useSelector(state => state.eventsState);
+  const {events, loading, isEdit, selectedEvent} = useSelector(
+    state => state.eventsState,
+  );
   const [eventForm, setEventForm] = React.useState({
-    "id": events.length,
-    "eventName": "",
-    "eventDetails": "",
-    "eventDate": ""
+    id: selectedEvent ? selectedEvent.id : events.length,
+    eventName: selectedEvent ? selectedEvent.event : '',
+    eventDetails: selectedEvent ? selectedEvent.details : '',
+    eventDate: selectedEvent ? selectedEvent.date : '',
   });
 
   const handleInputChange = (key, value) => {
@@ -47,8 +51,7 @@ export default AddeventModal = ({
 
   //return true if empty value..
   const checkValues = () => {
-    for (let key in eventForm)
-      if (eventForm[key] == '') return true;
+    for (let key in eventForm) if (eventForm[key] == '') return true;
     return false;
   };
 
@@ -108,9 +111,47 @@ export default AddeventModal = ({
     });
   };
 
+  const updateEvent = async () => {
+    const {data, error} = await updateEventService(eventForm);
+    if (data) {
+      console.log(data);
+      const updatedEvents = events.map(item => {
+        if (item.id === eventForm.id) {
+          return {
+            id: eventForm,
+            image: 'image.jpg',
+            event: eventForm.eventName,
+            details: eventForm.eventDetails,
+            date: eventForm.eventDate,
+          };
+        } else {
+          return item;
+        }
+      });
+      dispatch(
+        setEventState({
+          isEdit: false,
+          selectedEvent: null,
+          events: updatedEvents,
+        }),
+      );
+    }
+    console.log(error);
+  };
   return (
     <KeyboardAvoidingView style={{flex: 1, padding: 20}}>
-      <TouchableOpacity onPress={onModalClose}>
+      <TouchableOpacity
+        onPress={() => {
+          if (isEdit) {
+            dispatch(
+              setEventState({
+                isEdit: false,
+              }),
+            );
+          } else {
+            onModalClose();
+          }
+        }}>
         <Feather name="x" size={30} />
       </TouchableOpacity>
       <View style={[globalStyles.screenView, {alignItems: 'center'}]}>
@@ -140,11 +181,13 @@ export default AddeventModal = ({
             width: '100%',
           }}>
           <FormInput
+            value={eventForm.eventName}
             labelText="Event Name"
             name="eventname"
             onChangeText={value => handleInputChange('eventName', value)}
           />
           <FormInput
+            value={eventForm.eventDate}
             labelText="Event Date"
             name="eventdate"
             onChangeText={value => handleInputChange('eventDate', value)}
@@ -152,21 +195,39 @@ export default AddeventModal = ({
         </View>
 
         <View>
-          <ContainedButton
-            btnText="Submit"
-            onPress={addNewEvent}
-            isUpperCase={true}
-            variant="secondary"
-            btnStyle={{
-              elevation: 6,
-              height: 40,
-              paddingHorizontal: 10,
-            }}
-            textStyle={{
-              ...human.body,
-              color: 'white',
-            }}
-          />
+          {isEdit ? (
+            <ContainedButton
+              btnText="Update"
+              onPress={updateEvent}
+              isUpperCase={true}
+              variant="secondary"
+              btnStyle={{
+                elevation: 6,
+                height: 40,
+                paddingHorizontal: 10,
+              }}
+              textStyle={{
+                ...human.body,
+                color: 'white',
+              }}
+            />
+          ) : (
+            <ContainedButton
+              btnText="Submit"
+              onPress={addNewEvent}
+              isUpperCase={true}
+              variant="secondary"
+              btnStyle={{
+                elevation: 6,
+                height: 40,
+                paddingHorizontal: 10,
+              }}
+              textStyle={{
+                ...human.body,
+                color: 'white',
+              }}
+            />
+          )}
         </View>
       </View>
     </KeyboardAvoidingView>

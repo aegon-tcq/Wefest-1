@@ -18,6 +18,7 @@ export const inputFormStyles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#fff',
     marginBottom: 8,
+    color: '#fff',
   },
 });
 

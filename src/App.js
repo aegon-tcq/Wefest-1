@@ -28,28 +28,26 @@ const App = () => {
   const [showSplashScreen, setShowSplashScreen] = React.useState(true);
   const [isLoggedIn, setIsLoggedin] = React.useState(false);
   const dispatch = useDispatch();
-  const {user} = useSelector(state=>state.authState)
+  const {user} = useSelector(state => state.authState);
 
-
-  
   const getUserDetails = async () => {
-    
     // await AsyncStorage.setItem('authState',JSON.stringify({
     //   isLoggedIn:false,
     //   user:null,
     //   isAdmin:false
     // }))
-    let result = await AsyncStorage.getItem('authState');
-     result = await JSON.parse(result)
-    if (result.isLoggedIn) {
-      dispatch(
-        setAuthState({
-          isAdmin: true,
-          user: result.user,
-        }),
-      );
-    }
-
+    try {
+      let result = await AsyncStorage.getItem('authState');
+      result = await JSON.parse(result);
+      if (result.isLoggedIn) {
+        dispatch(
+          setAuthState({
+            isAdmin: true,
+            user: result.user,
+          }),
+        );
+      }
+    } catch (error) {}
 
     const timeOut = setTimeout(() => {
       setShowSplashScreen(false);
@@ -57,18 +55,17 @@ const App = () => {
     checkLoggedIn();
     return () => {
       clearTimeout(timeOut);
-    };    
+    };
   };
 
   const checkLoggedIn = () => {
-    
-    if(user) setIsLoggedin(true);
-  }
+    if (user) setIsLoggedin(true);
+  };
 
-  React.useEffect(()=>{
-    console.log("cheking")
+  React.useEffect(() => {
+    console.log('cheking');
     checkLoggedIn();
-  },[user])
+  }, [user]);
 
   React.useEffect(() => {
     getUserDetails();
