@@ -13,6 +13,10 @@ import {systemWeights, human} from 'react-native-typography';
 import {BoxShadow} from 'react-native-shadow';
 import AppHeader from '../components/AppHeader';
 import PageLayout from '../containers/PageLayout';
+import FormInput from '../components/FormComponents/FormInput';
+import Loader from '../components/Loader';
+import {API_BASE_URL} from '../constants/ApiUrl';
+import {alert, checkEmptyField} from '../utils';
 
 const Reachus2Routes = [
   {
@@ -32,7 +36,7 @@ const Reachus2Routes = [
     routeName: '',
   },
 ];
-const ReachUs2Screen = ({navigation}) => {
+const ReachUs2Screen = ({navigation, route}) => {
   const shadowOpt = {
     height: 50,
     width: Dimensions.get('screen').width - 50,
@@ -45,7 +49,54 @@ const ReachUs2Screen = ({navigation}) => {
     style: {marginVertical: 7, borderRadius: 10},
   };
 
-  return (
+  const [reachUs2Form, setReachUs2Form] = React.useState({
+    ...route.params,
+    eventidea: '',
+    contact: '',
+    email: '',
+    feedback: 'feedback',
+    name1: 'rohant',
+  });
+
+  const [loading, setLoading] = React.useState(false);
+
+  const handleInputChange = (key, value) => {
+    setReachUs2Form({
+      ...reachUs2Form,
+      [key]: value,
+    });
+  };
+
+  const onSubmitPress = async () => {
+    if (checkEmptyField(reachUs2Form))
+      alert('Warning', 'Fields cannot be empty');
+    else {
+      setLoading(true);
+      try {
+        let response = await fetch(`${API_BASE_URL}/reachus1.php`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(reachUs2Form),
+        });
+
+        let result = await response.json();
+        console.log(result);
+        setLoading(false);
+        alert('Success', 'Information submitted');
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+        alert('Error', 'something went wrong');
+      }
+    }
+  };
+
+  return loading ? (
+    <Loader />
+  ) : (
     <PageLayout>
       <ScrollView style={globalStyles.rootView}>
         <AppHeader title="Reach Us" />
@@ -77,7 +128,7 @@ const ReachUs2Screen = ({navigation}) => {
             alignItems: 'center',
             justifyContent: 'space-around',
           }}>
-          <FlatList
+          {/* <FlatList
             keyExtractor={item => item.screenName}
             data={Reachus2Routes}
             style={{flex: 1}}
@@ -104,10 +155,28 @@ const ReachUs2Screen = ({navigation}) => {
                 </BoxShadow>
               );
             }}
-          />
+          /> */}
+          <View style={{flex: 1, padding: 20, width: '100%'}}>
+            <FormInput
+              labelText="Mail Id"
+              name="mail id"
+              onChangeText={value => handleInputChange('email', value)}
+            />
+            <FormInput
+              labelText="Contact No."
+              name="Contact No."
+              numeric
+              onChangeText={value => handleInputChange('contact', value)}
+            />
+            <FormInput
+              labelText="Event Idea"
+              name="Event Idea"
+              onChangeText={value => handleInputChange('eventidea', value)}
+            />
+          </View>
           <ContainedButton
             btnText="Submit"
-            onPress={() => {}}
+            onPress={onSubmitPress}
             isUpperCase={true}
             variant="secondary"
             btnStyle={{

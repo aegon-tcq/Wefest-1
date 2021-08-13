@@ -63,7 +63,7 @@ const WelcomeScreen = ({navigation}) => {
       </View>
       <View style={welcomeScreenStyles.footerBtnWrapper}>
         <TextButton
-          btnText="Login As Admin"
+          btnText="Login"
           isUpperCase={true}
           btnStyle={welcomeScreenStyles.footerBtn}
           onPress={() => {

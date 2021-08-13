@@ -8,8 +8,15 @@ import EventCard from '../components/EventCard';
 import {cardColors} from '../styles/components/eventCardStyles';
 import {eventEditRoute} from '../navigation/screenNames';
 import AddEventModal from './components/AddEventModal';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import PageLayout from '../containers/PageLayout';
+import {
+  eventRequest,
+  eventRequestFail,
+  eventRequestSuccess,
+} from '../redux/actions/eventActions';
+import {API_BASE_URL} from '../constants/ApiUrl';
+import Loader from '../components/Loader';
 
 const EventsScreen = ({navigation}) => {
   const [addEventModalVisible, setAddEventModalVisible] = React.useState(false);
@@ -17,8 +24,28 @@ const EventsScreen = ({navigation}) => {
   const changeAddEventModalVisiblity = () => {
     setAddEventModalVisible(!addEventModalVisible);
   };
+  const dispatch = useDispatch();
+  const {events, loading} = useSelector(state => state.eventsState);
 
-  return (
+  const getEventList = async () => {
+    dispatch(eventRequest());
+    try {
+      let response = await fetch(`${API_BASE_URL}/eventuser.php`);
+      let json = await response.json();
+      dispatch(eventRequestSuccess(json));
+    } catch (error) {
+      console.error(error);
+      dispatch(eventRequestFail(json));
+    }
+  };
+
+  React.useEffect(() => {
+    getEventList();
+  }, []);
+
+  return loading ? (
+    <Loader />
+  ) : (
     <PageLayout>
       <View style={{flex: 1}}>
         <AppHeader title="Events" />
@@ -29,12 +56,14 @@ const EventsScreen = ({navigation}) => {
             paddingHorizontal: 10,
           }}>
           <FlatList
-            data={[0, 1, 2, 3, 4, 5]}
-            keyExtractor={item => item}
+            data={events}
+            keyExtractor={(item, index) => 'key' + index}
             numColumns={2}
             renderItem={({item, index}) => {
               return (
                 <EventCard
+                  date={item.eventDate}
+                  name={item.eventName}
                   showEdit={isAdmin}
                   onPressEdit={() => {
                     navigation.navigate(eventEditRoute);

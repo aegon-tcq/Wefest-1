@@ -13,6 +13,13 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as ImagePicker from 'react-native-image-picker';
 import ContainedButton from '../../components/Buttons/ContainedButton';
 import {systemWeights, human} from 'react-native-typography';
+import {
+  eventRequest,
+  eventRequestFail,
+  eventRequestSuccess
+} from "../../redux/actions/eventActions";
+import {API_BASE_URL} from "../../constants/ApiUrl";
+import {useSelector, useDispatch} from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -21,6 +28,53 @@ export default AddeventModal = ({
   onModalClose = () => console.log('modal close Btn'),
 }) => {
   const [imageFile, setImageFile] = useState(null);
+
+  const dispatch = useDispatch();
+  const {events, loading} = useSelector(state => state.eventsState);
+  const [eventForm, setEventForm] = React.useState({
+    "id": events.length,
+    "eventName": "",
+    "eventDetails": "",
+    "eventDate": ""
+  });
+
+  const handleInputChange = (key, value) => {
+    setEventForm({
+      ...eventForm,
+      [key]: value,
+    });
+  };
+
+  //return true if empty value..
+  const checkValues = () => {
+    for (let key in eventForm)
+      if (eventForm[key] == '') return true;
+    return false;
+  };
+
+  const addNewEvent = async () => {
+    if (!checkValues()) {
+      const newEvent = [...events, eventForm];
+      dispatch(eventRequest());
+
+      try {
+        let response = await fetch(`${API_BASE_URL}/eventadmin.php`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(eventForm),
+        });
+        dispatch(eventRequestSuccess(newEvent));
+        onModalClose();
+      } catch (error) {
+        console.error(error);
+        dispatch(eventRequestFail(newEvent));
+        onModalClose();
+      }
+    }
+  };
 
   const chooseImage = () => {
     let options = {
@@ -88,19 +142,19 @@ export default AddeventModal = ({
           <FormInput
             labelText="Event Name"
             name="eventname"
-            onChangeText={(name, text) => {}}
+            onChangeText={value => handleInputChange('eventName', value)}
           />
           <FormInput
             labelText="Event Date"
             name="eventdate"
-            onChangeText={(name, text) => {}}
+            onChangeText={value => handleInputChange('eventDate', value)}
           />
         </View>
 
         <View>
           <ContainedButton
             btnText="Submit"
-            onPress={() => {}}
+            onPress={addNewEvent}
             isUpperCase={true}
             variant="secondary"
             btnStyle={{

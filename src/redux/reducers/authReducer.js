@@ -1,7 +1,7 @@
 import {SET_AUTH_STATE} from '../types';
 
 const initialState = {
-  isAdmin: false,
+  isAdmin: true,
   user: null,
   allowSwipeUp: true,
 };

@@ -1,5 +1,15 @@
 import React from 'react';
-import {Text, View, Image, FlatList, Modal} from 'react-native';
+
+import {
+  Text,
+  View,
+  Image,
+  FlatList,
+  Modal,
+  Linking,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 import AppHeader from '../components/AppHeader';
 import ContainedButton from '../components/Buttons/ContainedButton';
 import FilterView from '../components/FilterView';
@@ -10,10 +20,18 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import Colors from '../constants/Colors';
 import {human} from 'react-native-typography';
 import AddNewDirectoryMemberModal from './components/AddNewDirectoryMemberModal';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import PageLayout from '../containers/PageLayout';
+import Loader from '../components/Loader';
 
-const DirectoryItem = ({item, isAdmin}) => {
+import {
+  directoryRequest,
+  directoryRequestFail,
+  directoryRequestSuccess,
+} from '../redux/actions/directoryActions';
+import {API_BASE_URL} from '../constants/ApiUrl';
+
+const DirectoryItem = ({item, isAdmin, onEditDetailsPress}) => {
   const [open, setOpen] = React.useState(false);
 
   const contentLeft = () => (
@@ -30,9 +48,9 @@ const DirectoryItem = ({item, isAdmin}) => {
         }}
       />
       <View>
-        <Text style={human.title3White}>Username</Text>
+        <Text style={human.title3White}>{item.username}</Text>
         <Text style={{...human.bodyWhiteObject, marginTop: 5}}>
-          {'user Role'.toUpperCase()}
+          {`${item.userRole}`.toUpperCase()}
         </Text>
       </View>
     </View>
@@ -41,6 +59,10 @@ const DirectoryItem = ({item, isAdmin}) => {
   const contentRight = () => (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <IconButton
+        onPress={() => {
+          console.log('pressed');
+          Linking.openURL(`mailto:${item.mail}`);
+        }}
         icon={
           <FeatherIcon
             name="mail"
@@ -57,6 +79,7 @@ const DirectoryItem = ({item, isAdmin}) => {
         }}
       />
       <IconButton
+        onPress={() => Linking.openURL(`tel:${item.phone}`)}
         icon={
           <FeatherIcon
             name="phone"
@@ -78,6 +101,7 @@ const DirectoryItem = ({item, isAdmin}) => {
       cardColor={Colors.secondary}
       expanded={open}
       onPress={() => setOpen(!open)}
+      onEditPress={()=>onEditDetailsPress(item)}
       disabled={!isAdmin}
       cardContent={
         <View style={{...globalStyles.rowSb, flex: 1}}>
@@ -98,9 +122,19 @@ const DirectoryScreen = () => {
   const [directoryModalVisiblity, setDirectoryModalVisiblity] =
     React.useState(false);
 
+  const [editDirectoryData, setEditDirectoryData] = React.useState(null);
+
+  const dispatch = useDispatch();
+  const {directory, loading} = useSelector(state => state.directoryState);
+
   const changeAddDirectoryModalVisiblity = () => {
     setDirectoryModalVisiblity(!directoryModalVisiblity);
   };
+
+  const onEditDetailsPress = (item) => {
+    setEditDirectoryData(item);
+    changeAddDirectoryModalVisiblity();
+  }
 
   const renderSeparator = () => (
     <View
@@ -110,7 +144,27 @@ const DirectoryScreen = () => {
       }}
     />
   );
-  return (
+
+  const getDirectoryList = async () => {
+    dispatch(directoryRequest());
+
+    try {
+      let response = await fetch(`${API_BASE_URL}/directoryuser.php`);
+      let json = await response.json();
+      dispatch(directoryRequestSuccess(json));
+    } catch (error) {
+      console.error(error);
+      dispatch(directoryRequestFail(json));
+    }
+  };
+
+  React.useEffect(() => {
+    getDirectoryList();
+  }, []);
+
+  return loading ? (
+    <Loader />
+  ) : (
     <PageLayout>
       <View style={globalStyles.rootView}>
         <AppHeader title="Directory" />
@@ -121,11 +175,13 @@ const DirectoryScreen = () => {
             paddingHorizontal: 15,
           }}>
           <FlatList
-            keyExtractor={item => item}
-            data={[0, 1, 2, 3, 4]}
+            data={directory}
+            keyExtractor={(item, index) => 'key' + index}
             ItemSeparatorComponent={renderSeparator}
             renderItem={({item}) => {
-              return <DirectoryItem key={item} isAdmin={isAdmin} />;
+              return <DirectoryItem 
+              onEditDetailsPress={onEditDetailsPress}
+              item={item} isAdmin={isAdmin} />;
             }}
           />
         </View>
@@ -136,7 +192,10 @@ const DirectoryScreen = () => {
               paddingHorizontal: 30,
             }}>
             <ContainedButton
-              onPress={changeAddDirectoryModalVisiblity}
+              onPress={()=>{
+                setEditDirectoryData(null);
+                changeAddDirectoryModalVisiblity();
+              }}
               btnText="Add New Member"
               addIcon={true}
               variant="secondary"
@@ -156,6 +215,7 @@ const DirectoryScreen = () => {
             changeAddDirectoryModalVisiblity();
           }}>
           <AddNewDirectoryMemberModal
+            directoryData={editDirectoryData}
             onModalClose={changeAddDirectoryModalVisiblity}
           />
         </Modal>

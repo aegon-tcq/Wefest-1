@@ -9,12 +9,17 @@ import NavigationHeader from '../components/NavigationHeader';
 import {homeScreenRoute} from '../navigation/screenNames';
 import {useDispatch} from 'react-redux';
 import {setAuthState} from './../redux/actions/authActions';
+import {API_BASE_URL} from "../constants/ApiUrl"
+import Loader from "../components/Loader";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {checkEmptyField,alert} from "../utils"
 
 const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState(false);
   const [loginForm, setLoginForm] = React.useState({
     username: '',
-    password: '',
+    pass: '',
   });
 
   const handleInputChange = (key, value) => {
@@ -23,7 +28,63 @@ const LoginScreen = ({navigation}) => {
       [key]: value,
     });
   };
-  return (
+
+
+  const login = async () => {
+    if(checkEmptyField(loginForm)){
+      alert('Warning', 'Fields cannot be empty');
+    }
+    else{
+      setLoading(true);
+    try{
+      let response = await fetch(`${API_BASE_URL}/loginadmin.php`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginForm),
+      });
+      let result = await response.json();
+
+      if(result[0].success){
+        
+        onLoginSuccess()
+      }
+      else{
+        setLoading(false);
+        alert("Error","Invalid email or password");
+      }
+
+    }catch(error){
+      console.error(error);
+      alert("Error","Something went wrong");
+      setLoading(false);
+    }
+    }
+  }
+
+  const onLoginSuccess = async () => {
+
+    await AsyncStorage.setItem("authState",JSON.stringify({
+      isLoggedIn:true,
+      user:loginForm,
+      isAdmin:true
+    }))
+
+    dispatch(
+      setAuthState({
+        isAdmin: true,
+        user:loginForm
+      }),
+    );
+
+    setLoading(false);
+    navigation.navigate(homeScreenRoute);
+    
+  }
+
+  return loading ? <Loader /> :  (
     <KeyboardAvoidingView style={{flex: 1}}>
       <NavigationHeader navigation={navigation} />
       <View style={globalStyles.screenView}>
@@ -41,13 +102,13 @@ const LoginScreen = ({navigation}) => {
           }}>
           <FormInput
             labelText="Enter Username"
-            onChangeText={handleInputChange}
+            onChangeText={(value) => handleInputChange("username",value)}
             name="username"
             value={loginForm.username}
           />
           <FormInput
             labelText="Enter Password"
-            onChangeText={handleInputChange}
+            onChangeText={(value) => handleInputChange("pass",value)}
             name="password"
             value={loginForm.password}
           />
@@ -71,14 +132,7 @@ const LoginScreen = ({navigation}) => {
             gradientContainerStyle={{
               borderRadius: 22,
             }}
-            onPress={() => {
-              dispatch(
-                setAuthState({
-                  isAdmin: true,
-                }),
-              );
-              navigation.navigate(homeScreenRoute);
-            }}
+            onPress={login}
           />
         </View>
       </View>
