@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'http://wefest.000webhostapp.com';
+export const API_BASE_URL = 'https://wefest.000webhostapp.com';

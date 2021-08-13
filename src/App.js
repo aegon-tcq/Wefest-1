@@ -36,11 +36,11 @@ const App = () => {
     
     // await AsyncStorage.setItem('authState',JSON.stringify({
     //   isLoggedIn:false,
-    //   user:null
+    //   user:null,
+    //   isAdmin:false
     // }))
     let result = await AsyncStorage.getItem('authState');
      result = await JSON.parse(result)
-
     if (result.isLoggedIn) {
       dispatch(
         setAuthState({
