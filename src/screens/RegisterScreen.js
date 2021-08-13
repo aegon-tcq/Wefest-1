@@ -88,19 +88,28 @@ const RegisterScreen = ({navigation}) => {
   };
 
   // const uploadImage = async () => {
+
   //   const data = new FormData();
 
-  //   data.append('sendimage', imageFile.fileData.uri);
+  //   data.append('sendimage', {
+  //     uri: imageFile.fileData.uri,
+  //     name: imageFile.fileData.fileName,
+  //     type: imageFile.fileData.type,
+  //   });
+
   //   try {
-  //     let res = await fetch('https://wefest.000webhostapp.com/galleryadmin.php', {
-  //       method: 'POST',
-  //       body: data,
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data; ',
+  //     let res = await fetch(
+  //       'https://wefest.000webhostapp.com/galleryadmin.php',
+  //       {
+  //         method: 'POST',
+  //         body: data,
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data; ',
+  //         },
   //       },
-  //     });
+  //     );
   //     let responseJson = await res.text();
-  //     console.log(responseJson)
+  //     console.log('response->',responseJson);
   //   } catch (e) {
   //     console.log(e);
   //   }
