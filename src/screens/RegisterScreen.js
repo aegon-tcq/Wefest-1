@@ -24,8 +24,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import {API_BASE_URL} from '../constants/ApiUrl';
 import {setAuthState} from '../redux/actions/authActions';
 import Loader from '../components/Loader';
-import {checkEmptyField,alert} from "../utils"
-
+import {checkEmptyField, alert} from '../utils';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -88,14 +87,30 @@ const RegisterScreen = ({navigation}) => {
     });
   };
 
+  // const uploadImage = async () => {
+  //   const data = new FormData();
+
+  //   data.append('sendimage', imageFile.fileData.uri);
+  //   try {
+  //     let res = await fetch('https://wefest.000webhostapp.com/galleryadmin.php', {
+  //       method: 'POST',
+  //       body: data,
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data; ',
+  //       },
+  //     });
+  //     let responseJson = await res.text();
+  //     console.log(responseJson)
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
   const onRegister = async () => {
-
-
     // if(checkEmptyField(registerForm)){
     //   alert('Warning', 'Fields cannot be empty');
     //   return;
     // }
-
     // setLoading(true);
     // try {
     //   let response = await fetch(`${API_BASE_URL}/register.php`, {
@@ -114,14 +129,13 @@ const RegisterScreen = ({navigation}) => {
     //     }),
     //   });
     //   let result = await response.json();
-
-      // console.log(result);
-      // if (result[0].success) {
-      //   onRegisterSuccess();
-      // } else {
-      //   setLoading(false);
-      //   alert("Error","Something went wrong");
-      // }
+    // console.log(result);
+    // if (result[0].success) {
+    //   onRegisterSuccess();
+    // } else {
+    //   setLoading(false);
+    //   alert("Error","Something went wrong");
+    // }
     // } catch (error) {
     //   console.error(error);
     //   alert("Error","Something went wrong");

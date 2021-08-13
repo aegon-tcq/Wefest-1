@@ -18,8 +18,8 @@ const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
   const [loginForm, setLoginForm] = React.useState({
-    username: '',
-    pass: '',
+    email: '',
+    password: '',
   });
 
   const handleInputChange = (key, value) => {
@@ -37,7 +37,7 @@ const LoginScreen = ({navigation}) => {
     else{
       setLoading(true);
     try{
-      let response = await fetch(`${API_BASE_URL}/loginadmin.php`, {
+      let response = await fetch(`${API_BASE_URL}/loginvalidate.php`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -46,10 +46,10 @@ const LoginScreen = ({navigation}) => {
         body: JSON.stringify(loginForm),
       });
       let result = await response.json();
-
+      
       if(result[0].success){
         
-        onLoginSuccess()
+        onLoginSuccess(result[0])
       }
       else{
         setLoading(false);
@@ -64,17 +64,17 @@ const LoginScreen = ({navigation}) => {
     }
   }
 
-  const onLoginSuccess = async () => {
+  const onLoginSuccess = async (res) => {
 
     await AsyncStorage.setItem("authState",JSON.stringify({
       isLoggedIn:true,
       user:loginForm,
-      isAdmin:true
+      isAdmin:res.isadmin
     }))
 
     dispatch(
       setAuthState({
-        isAdmin: true,
+        isAdmin: res.isadmin,
         user:loginForm
       }),
     );
@@ -102,13 +102,13 @@ const LoginScreen = ({navigation}) => {
           }}>
           <FormInput
             labelText="Enter Username"
-            onChangeText={(value) => handleInputChange("username",value)}
+            onChangeText={(value) => handleInputChange("email",value)}
             name="username"
             value={loginForm.username}
           />
           <FormInput
             labelText="Enter Password"
-            onChangeText={(value) => handleInputChange("pass",value)}
+            onChangeText={(value) => handleInputChange("password",value)}
             name="password"
             value={loginForm.password}
           />
