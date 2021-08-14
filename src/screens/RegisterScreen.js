@@ -25,6 +25,8 @@ import {API_BASE_URL} from '../constants/ApiUrl';
 import {setAuthState} from '../redux/actions/authActions';
 import Loader from '../components/Loader';
 import {checkEmptyField, alert} from '../utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -126,7 +128,7 @@ const RegisterScreen = ({navigation}) => {
       });
       let result = await response.json();
     console.log(result);
-    if (typeof result !== 'object' && result[0].success) {
+    if (result[0].successful) {
       onRegisterSuccess();
     } else {
       setLoading(false);
