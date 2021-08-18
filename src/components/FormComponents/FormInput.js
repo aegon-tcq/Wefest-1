@@ -18,7 +18,7 @@ const FormInput = ({
       <Text style={[inputFormStyles.inputLabel, labelStyle]}>{labelText}</Text>
       {value ? (
         <TextInput
-          placeholder={placeHolder}
+          placeholder={labelText}
           placeholderTextColor="grey"
           value={value}
           keyboardType={ numeric ?  "phone-pad" : "default"}
@@ -29,7 +29,7 @@ const FormInput = ({
         />
       ) : (
         <TextInput
-          placeholder={placeHolder}
+         placeholder={labelText}
           placeholderTextColor="grey"
           onChangeText={onChangeText}
           keyboardType={ numeric ?  "phone-pad" : "default"}

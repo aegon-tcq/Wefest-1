@@ -43,7 +43,7 @@ export const dashboardRoutes = [
     routeName: announcementScreenRoute,
   },
   {
-    screenName: 'React Out',
+    screenName: 'Reach Out',
     routeName: ReachUs1ScreenRoute,
     child: [
       {
