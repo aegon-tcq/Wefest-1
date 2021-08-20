@@ -20,7 +20,8 @@ import {
   eventRequestFail,
   eventRequestSuccess,
 } from '../redux/actions/eventActions';
-import {alert} from "../utils";
+import {alert, toast} from "../utils";
+import LocalAuth from "react-native-local-auth"
 
 const AttendanceCard = ({
   item,
@@ -82,11 +83,12 @@ function AttendenceScreen() {
         },
         body: JSON.stringify({
           email:user.email,
-          name:item.event,
+          id:item.id,
           Date:item.date
         }),
       });
-      let json = await response.json();
+      let json = await response.text();
+      console.log(json)
       alert("Success","Attendece makred");
       dispatch(eventRequestFail(json));
     } catch (error) {
@@ -94,6 +96,21 @@ function AttendenceScreen() {
       alert("Error","Something went wrong");
       dispatch(eventRequestFail(json));
     }
+  }
+
+  const authenticate = (item) => {
+    LocalAuth.authenticate({
+      reason: 'this is a secure area, please authenticate yourself',
+      fallbackToPasscode: true,    // fallback to passcode on cancel
+      suppressEnterPassword: true // disallow Enter Password fallback
+    })
+    .then(success => {
+      toast('Authenticated Successfully');
+      markAttendence(item);
+    })
+    .catch(error => {
+      alert('Authentication Failed', error.message)
+    })
   }
 
   return loading ? (
@@ -108,7 +125,7 @@ function AttendenceScreen() {
             keyExtractor={(item, index) => 'key' + index}
             numColumns={2}
             renderItem={({item}) => (
-              <AttendanceCard item={item} onPress={markAttendence} />
+              <AttendanceCard item={item} onPress={authenticate} />
             )}
           />
         </View>
